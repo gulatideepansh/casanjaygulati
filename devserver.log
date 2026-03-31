@@ -1,0 +1,694 @@
+
+> casanjaygulati-in@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.5.14
+   - Local:        http://localhost:3000
+   - Network:      http://100.111.199.77:3000
+
+ ✓ Starting...
+ ✓ Ready in 1902ms
+ ○ Compiling / ...
+ ✓ Compiled / in 11.4s (729 modules)
+ GET / 200 in 13474ms
+ GET / 200 in 8547ms
+ ○ Compiling /icon.jpg ...
+ ✓ Compiled /icon.jpg in 1760ms (475 modules)
+ GET /icon.jpg 200 in 2122ms
+ ✓ Compiled in 843ms (711 modules)
+ GET / 200 in 681ms
+ ○ Compiling /manifest.webmanifest ...
+ ✓ Compiled /manifest.webmanifest in 676ms (719 modules)
+ GET /manifest.webmanifest 200 in 1058ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 647ms (724 modules)
+ GET /icon.svg 404 in 1371ms
+ ✓ Compiled in 870ms (712 modules)
+ ⨯ SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>) {
+  page: '/'
+}
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 5.4s (1044 modules)
+ GET / 500 in 6085ms
+ GET / 200 in 3790ms
+ ✓ Compiled /icon.jpg in 380ms (669 modules)
+ GET /icon.jpg 200 in 778ms
+ ✓ Compiled in 991ms (979 modules)
+ GET / 200 in 1414ms
+ ⨯ Error: Cannot find module './331.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\app\icon.jpg\route.js:1:40946)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\app\icon.jpg\route.js:1:40996) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/icon.jpg'
+}
+ ✓ Compiled /_error in 441ms (1061 modules)
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\pages\_document.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:325)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:371) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /icon.jpg 500 in 5798ms
+ ○ Compiling /services ...
+ ✓ Compiled /services in 1405ms (1080 modules)
+ ⨯ Error: ENOENT: no such file or directory, open 'D:\University\Third Year\Projects\.next\server\vendor-chunks\next.js'
+    at <unknown> (D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js:390:47)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js:393:3) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'D:\\University\\Third Year\\Projects\\.next\\server\\vendor-chunks\\next.js',
+  page: '/services'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:325)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:371) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+Error: ENOENT: no such file or directory, open 'D:\University\Third Year\Projects\.next\server\vendor-chunks\next.js'
+    at <unknown> (D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js:390:47)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js:393:3) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'D:\\University\\Third Year\\Projects\\.next\\server\\vendor-chunks\\next.js',
+  page: '/services'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:325)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:371) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: ENOENT: no such file or directory, open 'D:\University\Third Year\Projects\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'D:\\University\\Third Year\\Projects\\.next\\routes-manifest.json'
+}
+ GET /services 500 in 1716ms
+ GET /services 500 in 117ms
+ ⨯ Error: ENOENT: no such file or directory, open 'D:\University\Third Year\Projects\.next\server\vendor-chunks\next.js'
+    at <unknown> (D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js:390:47)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js:393:3) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'D:\\University\\Third Year\\Projects\\.next\\server\\vendor-chunks\\next.js',
+  page: '/services'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:325)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:371) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+Error: ENOENT: no such file or directory, open 'D:\University\Third Year\Projects\.next\server\vendor-chunks\next.js'
+    at <unknown> (D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js:390:47)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js:393:3) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'D:\\University\\Third Year\\Projects\\.next\\server\\vendor-chunks\\next.js',
+  page: '/services'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:325)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:371) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: ENOENT: no such file or directory, open 'D:\University\Third Year\Projects\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'D:\\University\\Third Year\\Projects\\.next\\routes-manifest.json'
+}
+ GET /services 500 in 265ms
+ GET /services 500 in 109ms
+ ⨯ Error: Cannot find module './331.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js:2:15749)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js:2:15806) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/services'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:325)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:371) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+Error: Cannot find module './331.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js:2:15749)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js:2:15806) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/services'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:325)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:371) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: ENOENT: no such file or directory, open 'D:\University\Third Year\Projects\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'D:\\University\\Third Year\\Projects\\.next\\routes-manifest.json'
+}
+ GET /services 500 in 366ms
+ GET /services 500 in 123ms
+ ⨯ Error: Cannot find module './331.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\app\(marketing)\page.js:2:12209)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\app\(marketing)\page.js:2:12266) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:325)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:371) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+Error: Cannot find module './331.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\app\(marketing)\page.js:2:12209)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\app\(marketing)\page.js:2:12266) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:325)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:371) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: ENOENT: no such file or directory, open 'D:\University\Third Year\Projects\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'D:\\University\\Third Year\\Projects\\.next\\routes-manifest.json'
+}
+ GET / 500 in 485ms
+ GET / 500 in 95ms
+ ⨯ Error: Cannot find module './331.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\app\(marketing)\page.js:2:12209)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\app\(marketing)\page.js:2:12266) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:325)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:371) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+Error: Cannot find module './331.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\app\(marketing)\page.js:2:12209)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\app\(marketing)\page.js:2:12266) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:325)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:371) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[Error: ENOENT: no such file or directory, open 'D:\University\Third Year\Projects\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'D:\\University\\Third Year\\Projects\\.next\\routes-manifest.json'
+}
+ GET / 500 in 472ms
+ GET / 500 in 105ms
+ ⨯ Error: Cannot find module './331.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\app\(marketing)\page.js:2:12209)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\app\(marketing)\page.js:2:12266) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:325)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:371) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+Error: Cannot find module './331.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\app\(marketing)\page.js:2:12209)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\app\(marketing)\page.js:2:12266) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:325)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:371) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ GET / 500 in 282ms
+ GET / 500 in 92ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, stat 'D:\University\Third Year\Projects\.next\cache\webpack\server-development\1.pack.gz'
+ ⨯ Error: Cannot find module './331.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\app\(marketing)\page.js:2:12209)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\app\(marketing)\page.js:2:12266) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:325)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:371) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+Error: Cannot find module './331.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\app\(marketing)\page.js:2:12209)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\app\(marketing)\page.js:2:12266) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:325)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:371) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ GET / 500 in 338ms
+ GET / 500 in 98ms
+ ⨯ Error: Cannot find module './331.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\app\(marketing)\page.js:2:12209)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\app\(marketing)\page.js:2:12266) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:325)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:371) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+Error: Cannot find module './331.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\app\(marketing)\page.js:2:12209)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\app\(marketing)\page.js:2:12266) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\University\Third Year\Projects\.next\server\webpack-runtime.js
+- D:\University\Third Year\Projects\.next\server\app\(marketing)\services\page.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\require.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\load-components.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\utils.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\options.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\swc\index.js
+- D:\University\Third Year\Projects\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\config.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\next.js
+- D:\University\Third Year\Projects\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:325)
+    at Object.<anonymous> (D:\University\Third Year\Projects\.next\server\pages\_document.js:1:371) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ GET / 500 in 339ms
+ GET / 500 in 136ms
+^C^C
