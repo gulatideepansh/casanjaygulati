@@ -40,9 +40,14 @@ export function Header() {
           ))}
         </nav>
 
-        <Link href="/#contact" className="button-primary hidden lg:inline-flex lg:px-5 lg:py-2.5">
-          Schedule Consultation
-        </Link>
+        <div className="hidden items-center gap-3 lg:flex">
+          <Link href="/portal/sign-in" className="button-secondary lg:px-5 lg:py-2.5">
+            Staff Login
+          </Link>
+          <Link href="/#contact" className="button-primary lg:px-5 lg:py-2.5">
+            Schedule Consultation
+          </Link>
+        </div>
       </div>
     </header>
   );

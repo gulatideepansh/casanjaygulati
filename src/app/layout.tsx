@@ -3,8 +3,6 @@ import { Cormorant_Garamond, Manrope } from "next/font/google";
 
 import "./globals.css";
 
-import { Footer } from "@/components/site/footer";
-import { Header } from "@/components/site/header";
 import { siteContent } from "@/content/site-content";
 
 const display = Cormorant_Garamond({
@@ -78,20 +76,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <body className={`${display.variable} ${body.variable} font-body antialiased`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
-        <div className="flex min-h-screen flex-col bg-ink text-white">
-          {/* Phase 1 uses a shared public shell.
-              Future portal/admin route groups can swap in protected layouts without changing the
-              marketing experience. */}
-          <Header />
-          <div className="flex-1">{children}</div>
-          <Footer />
-        </div>
+        <div className="min-h-screen bg-ink text-white">{children}</div>
       </body>
     </html>
   );

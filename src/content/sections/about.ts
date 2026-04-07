@@ -37,7 +37,7 @@ export const about: SiteContent["about"] = {
 };
 
 export const metrics: SiteContent["metrics"] = [
-  { label: "Years of practice", value: "3 decades" },
+  { label: "Years of practice", value: "34+ years" },
   { label: "Core service lines", value: "12" },
   { label: "Planned branch locations", value: "2" },
   { label: "Team structure", value: "25+ professionals" }

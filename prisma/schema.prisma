@@ -1,0 +1,152 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+enum UserRole {
+  ADMIN
+  STAFF
+}
+
+enum AccountStatus {
+  APPROVED
+  PENDING
+}
+
+enum AttendanceStatus {
+  ON_TIME
+  LATE
+  COMPLETED
+  EARLY_CLOCK_OUT
+  MISSED_CLOCK_OUT
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  BLOCKED
+}
+
+model User {
+  id                  String               @id @default(cuid())
+  username            String               @unique
+  firstName           String
+  lastName            String
+  email               String?              @unique
+  passwordHash        String
+  role                UserRole             @default(STAFF)
+  status              AccountStatus        @default(APPROVED)
+  staffId             String?              @unique
+  profileImageDataUrl String?
+  approvedAt          DateTime?
+  approvedById        String?
+  approvedBy          User?                @relation("UserApprovals", fields: [approvedById], references: [id])
+  approvedUsers       User[]               @relation("UserApprovals")
+  lastLoginAt         DateTime?
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  sessions            Session[]
+  passwordResetTokens PasswordResetToken[]
+  attendanceRecords   Attendance[]
+  assignedTasks       Task[]               @relation("AssignedTasks")
+  createdTasks        Task[]               @relation("CreatedTasks")
+  auditActorLogs      AuditLog[]           @relation("AuditActor")
+  auditTargetLogs     AuditLog[]           @relation("AuditTarget")
+}
+
+model Session {
+  id               String   @id @default(cuid())
+  userId           String
+  sessionTokenHash String   @unique
+  expiresAt        DateTime
+  createdAt        DateTime @default(now())
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model Counter {
+  key       String   @id
+  value     Int      @default(0)
+  updatedAt DateTime @updatedAt
+}
+
+model Attendance {
+  id               String           @id @default(cuid())
+  userId           String
+  workDateKey      String
+  clockInAt        DateTime
+  clockOutAt       DateTime?
+  status           AttendanceStatus
+  expectedClockIn  String           @default("10:30")
+  expectedClockOut String           @default("19:30")
+  note             String?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, workDateKey])
+  @@index([workDateKey])
+  @@index([status])
+}
+
+model Task {
+  id               String       @id @default(cuid())
+  title            String
+  description      String
+  priority         TaskPriority @default(MEDIUM)
+  status           TaskStatus   @default(PENDING)
+  dueDate          DateTime
+  assignedToUserId String
+  createdByUserId  String
+  completedAt      DateTime?
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  assignedTo       User         @relation("AssignedTasks", fields: [assignedToUserId], references: [id], onDelete: Cascade)
+  createdBy        User         @relation("CreatedTasks", fields: [createdByUserId], references: [id], onDelete: Cascade)
+
+  @@index([assignedToUserId, status])
+  @@index([dueDate])
+  @@index([status])
+}
+
+model AuditLog {
+  id           String   @id @default(cuid())
+  actorUserId  String?
+  targetUserId String?
+  action       String
+  metadata     String?
+  createdAt    DateTime @default(now())
+  actorUser    User?    @relation("AuditActor", fields: [actorUserId], references: [id], onDelete: SetNull)
+  targetUser   User?    @relation("AuditTarget", fields: [targetUserId], references: [id], onDelete: SetNull)
+
+  @@index([action])
+  @@index([createdAt])
+}
