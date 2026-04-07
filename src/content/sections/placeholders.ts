@@ -2,43 +2,51 @@ import type { BranchItem, PartnerItem, SiteContent } from "@/content/types";
 
 export const branches: BranchItem[] = [
   {
-    name: "Office Location",
-    address: "Address details may be updated here.",
-    note: "This section may include the office address, contact person, business hours, and location details."
+    name: "Lajpat Nagar Office",
+    address: "A-44, Basement, Amar Colony, Lajpat Nagar 4, New Delhi 110024",
+    note: "Primary office for client meetings, tax matters, audit discussions, and ongoing professional coordination.",
+    mapLink:
+      "https://www.google.com/maps/search/?api=1&query=A-44%2C+Basement%2C+Amar+Colony%2C+Lajpat+Nagar+4%2C+New+Delhi+110024"
   },
   {
-    name: "Office Location",
-    address: "Address details may be updated here.",
-    note: "Local contact details and service coverage information may be added here for the branch office."
+    name: "Karol Bagh Office",
+    address: "102, 82 Abhinash Mansion, Joshi Road, Karol Bagh, New Delhi 110005",
+    note: "Additional office presence supporting accessibility and professional coordination across Delhi.",
+    mapLink:
+      "https://www.google.com/maps/search/?api=1&query=102%2C+82+Abhinash+Mansion%2C+Joshi+Road%2C+Karol+Bagh%2C+New+Delhi+110005"
   }
 ];
 
 export const partners: PartnerItem[] = [
   {
     name: "Sanjay Gulati",
-    role: "Designation and qualifications",
+    role: "Chartered Accountant",
+    designation: "Chartered Accountant",
+    qualifications: "B.Com, FCA",
     description:
-      "A brief professional profile may be added here, including qualifications, areas of practice, and the partner's experience in advising clients.",
+      "Sanjay Gulati advises clients on tax, compliance, and business matters with a focus on practical guidance, responsiveness, and long-term professional relationships.",
     image: "/sanjay-gulati.png"
   },
   {
     name: "Pawan Gulati",
-    role: "Designation and qualifications",
+    role: "Chartered Accountant",
+    designation: "Chartered Accountant",
+    qualifications: "B.Com, FCA, DISA",
     description:
-      "This space may be used for a concise introduction covering sector experience, practice focus, and representative professional work.",
+      "Pawan Gulati supports clients across finance, compliance, and advisory requirements with attention to detail, disciplined execution, and professional continuity.",
     image: "/pawan-gulati.png"
   }
 ];
 
 export const team: SiteContent["team"] = {
-  title: "Staff & Team Listing",
+  title: "A focused professional team supporting timely delivery and consistent client communication.",
   description:
-    "This section is intentionally structured for future staff profiles, department groupings, and a more detailed directory for a close-knit 10-person practice.",
+    "The practice is supported by a close-knit team that assists with documentation, compliance workflows, coordination, and day-to-day execution across client assignments.",
   categories: [
-    "Staff profile placeholder 1",
-    "Staff profile placeholder 2",
-    "Department / role placeholder",
-    "Additional team details to be updated"
+    "Accounts and reporting support",
+    "Tax and compliance coordination",
+    "Documentation and filing workflows",
+    "Client communication and follow-up"
   ],
-  note: "Detailed staff names, roles, departments, photos, and profile information will be updated later."
+  note: "The firm combines partner oversight with a dependable operational team to ensure matters are handled carefully and on schedule."
 };

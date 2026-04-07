@@ -1,5 +1,5 @@
 import { about, experience, heroPillars, highlights, metrics } from "@/content/sections/about";
-import { contactCards, inquiry } from "@/content/sections/contact";
+import { contactCards, contactForm, inquiry } from "@/content/sections/contact";
 import { firm } from "@/content/sections/firm";
 import { footer } from "@/content/sections/footer";
 import { nav } from "@/content/sections/navigation";
@@ -25,6 +25,7 @@ export const siteContent: SiteContent = {
   experience,
   contactCards,
   inquiry,
+  contactForm,
   footer,
   seo
 };

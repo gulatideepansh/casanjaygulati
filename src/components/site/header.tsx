@@ -18,10 +18,12 @@ export function Header() {
               priority
             />
           </div>
-          <div>
-            <p className="font-display text-[1.35rem] leading-none text-white">{siteContent.firm.name}</p>
-            <p className="mt-1 text-[11px] uppercase tracking-[0.32em] text-slate-400">
-              {siteContent.firm.domain}
+          <div className="min-w-0">
+            <p className="font-display text-[1.3rem] leading-none text-white sm:text-[1.5rem]">
+              {siteContent.firm.name}
+            </p>
+            <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.28em] text-slate-300">
+              Chartered Accountants
             </p>
           </div>
         </Link>

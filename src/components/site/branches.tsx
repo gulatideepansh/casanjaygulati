@@ -6,18 +6,26 @@ export function Branches() {
     <section id="branches" className="section-shell section-divider py-24">
       <SectionHeading
         eyebrow="Branches"
-        title="Branch offices"
-        description="Additional office locations may be listed here with address details, contact information, and local service coverage."
+        title="Office locations"
+        description="Clients may connect with the firm through its Delhi office locations for meetings, documentation, and ongoing professional coordination."
       />
-      <div className="mt-12 grid gap-6 lg:grid-cols-2">
+      <div className="mt-12 grid gap-10 border-t border-white/10 pt-10 lg:grid-cols-2">
         {siteContent.branches.map((branch, index) => (
-          <article key={branch.name} className="panel-card hover-lift p-8">
-            <p className="text-xs uppercase tracking-[0.35em] text-brass">Branch {index + 1}</p>
+          <article key={branch.name} className="border-l border-white/10 pl-6">
+            <p className="text-xs uppercase tracking-[0.35em] text-brass">Office {index + 1}</p>
             <h3 className="mt-4 font-display text-[2rem] text-white">{branch.name}</h3>
-            <p className="mt-4 text-base leading-7 text-slate-300">{branch.address}</p>
-            <div className="mt-8 rounded-2xl border border-dashed border-white/15 bg-black/10 p-5">
-              <p className="text-sm leading-7 text-slate-400">{branch.note}</p>
-            </div>
+            <p className="mt-4 max-w-xl text-base leading-7 text-slate-300">{branch.address}</p>
+            <p className="mt-5 text-sm leading-7 text-slate-400">{branch.note}</p>
+            {branch.mapLink ? (
+              <a
+                href={branch.mapLink}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-6 inline-flex text-sm font-semibold text-brass transition duration-300 hover:text-white"
+              >
+                Open in Google Maps
+              </a>
+            ) : null}
           </article>
         ))}
       </div>

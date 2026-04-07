@@ -10,19 +10,23 @@ export function Hero() {
       <div className="absolute inset-0 bg-hero-radial" />
       <div className="absolute inset-x-0 top-0 h-40 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),transparent)]" />
       <div className="absolute left-10 top-28 h-40 w-40 rounded-full bg-brass/10 blur-3xl" />
+      <div className="absolute right-12 top-24 h-48 w-48 rounded-full bg-white/5 blur-3xl" />
 
-      <div className="section-shell relative grid gap-14 py-20 lg:grid-cols-[0.98fr_1.02fr] lg:py-28">
-        <div className="max-w-3xl animate-fade-up">
+      <div className="section-shell relative py-20 lg:py-28">
+        <div className="mx-auto max-w-5xl animate-fade-up text-center">
           <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.28em] text-slate-200">
             Established Chartered Accountants in New Delhi
           </div>
-          <h1 className="mt-8 max-w-4xl font-display text-5xl leading-[0.98] text-white sm:text-6xl lg:text-[4.5rem]">
-            Trusted financial guidance for businesses and families who value steady counsel.
+          <p className="mt-8 text-sm font-semibold uppercase tracking-[0.34em] text-brass sm:text-base">
+            {siteContent.firm.name}
+          </p>
+          <h1 className="mt-6 font-display text-5xl leading-[0.98] text-white sm:text-6xl lg:text-[4.75rem]">
+            Welcome to Nayyar & Nayyar
           </h1>
-          <p className="mt-7 max-w-2xl text-[17px] leading-8 text-slate-300 sm:text-lg">
+          <p className="mx-auto mt-7 max-w-3xl text-[17px] leading-8 text-slate-300 sm:text-lg">
             {siteContent.firm.description}
           </p>
-          <div className="mt-7 flex flex-wrap items-center gap-4 text-sm text-slate-300">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-slate-300">
             <div className="flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-brass" />
               {siteContent.firm.yearsExperience}+ years of experience
@@ -32,7 +36,7 @@ export function Hero() {
               Approximately 10-person professional team
             </div>
           </div>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
             {siteContent.heroPillars.map((item) => (
               <span
                 key={item}
@@ -43,7 +47,7 @@ export function Hero() {
             ))}
           </div>
 
-          <div className="mt-11 flex flex-col gap-4 sm:flex-row">
+          <div className="mt-11 flex flex-col justify-center gap-4 sm:flex-row">
             <Link href="/#contact" className="button-primary text-center">
               Request a Consultation
             </Link>
@@ -53,50 +57,64 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="animate-fade-up-delayed panel-card p-5 sm:p-6">
-          <div className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))]">
-            <div className="relative">
-              <Image
-                src="/hero-desk-stock.jpg"
-                alt="Desk setup with calculator, pen, and paperwork for Nayyar and Nayyar Co."
-                width={1024}
-                height={768}
-                className="h-auto w-full object-cover"
-                priority
-              />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,17,31,0.18),rgba(8,17,31,0.62))]" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_24%,rgba(184,145,70,0.22),transparent_24%)]" />
-            </div>
-
-            <div className="grid gap-4 p-6 sm:grid-cols-2 sm:p-8">
-              {siteContent.metrics.map((metric) => (
-                <div key={metric.label} className="panel-card-soft p-5">
-                  <p className="font-display text-3xl text-white">{metric.value}</p>
-                  <p className="mt-2 text-sm leading-6 text-slate-300">{metric.label}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="grid gap-4 border-t border-white/10 px-6 py-6 sm:grid-cols-2 sm:px-8">
-              <div className="panel-card-soft flex items-start gap-3 p-4">
-                <MapPin size={18} className="mt-1 text-brass" />
-                <div>
-                  <p className="text-sm font-semibold text-white">Located in South Delhi</p>
-                  <p className="mt-1 text-sm leading-6 text-slate-300">
-                    Serving clients from New Delhi with a professional, accessible office base.
+        <div className="animate-fade-up-delayed mt-14 overflow-hidden rounded-[2rem] border border-white/10">
+          <div className="relative">
+            <Image
+              src="/hero-desk-stock.jpg"
+              alt="Desk setup with calculator, pen, and paperwork for NAYYAR & NAYYAR"
+              width={1600}
+              height={900}
+              className="h-[260px] w-full object-cover sm:h-[320px] lg:h-[380px]"
+              priority
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,17,31,0.08),rgba(8,17,31,0.68))]" />
+            <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,transparent,rgba(7,17,29,0.96))] p-6 sm:p-8 lg:p-10">
+              <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+                <div className="max-w-2xl">
+                  <p className="text-xs uppercase tracking-[0.35em] text-brass">Professional Practice</p>
+                  <p className="mt-4 text-base leading-8 text-slate-200">
+                    The firm combines long-standing experience with practical, partner-led advice across
+                    audit, taxation, compliance, and business matters.
                   </p>
                 </div>
-              </div>
-              <div className="panel-card-soft flex items-start gap-3 p-4">
-                <ShieldCheck size={18} className="mt-1 text-brass" />
-                <div>
-                  <p className="text-sm font-semibold text-white">Boutique, partner-accessible practice</p>
-                  <p className="mt-1 text-sm leading-6 text-slate-300">
-                    A small team structure helps keep communication direct, careful, and accountable.
-                  </p>
+                <div className="grid gap-4 text-sm text-slate-200 sm:grid-cols-2">
+                  <div className="border-l border-white/15 pl-4">
+                    <div className="flex items-start gap-3">
+                      <MapPin size={18} className="mt-1 text-brass" />
+                      <div>
+                        <p className="font-semibold text-white">Located in South Delhi</p>
+                        <p className="mt-1 leading-6 text-slate-300">
+                          Serving clients through an established and accessible office base.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="border-l border-white/15 pl-4">
+                    <div className="flex items-start gap-3">
+                      <ShieldCheck size={18} className="mt-1 text-brass" />
+                      <div>
+                        <p className="font-semibold text-white">Direct professional oversight</p>
+                        <p className="mt-1 leading-6 text-slate-300">
+                          A focused team structure keeps communication careful and accountable.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
+
+          <div className="grid gap-0 border-t border-white/10 bg-[#08111d]/95 sm:grid-cols-2 lg:grid-cols-4">
+            {siteContent.metrics.map((metric) => (
+              <div
+                key={metric.label}
+                className="border-b border-white/10 px-6 py-5 sm:border-r sm:last:border-r-0 lg:border-b-0"
+              >
+                <p className="font-display text-3xl text-white">{metric.value}</p>
+                <p className="mt-2 text-sm leading-6 text-slate-300">{metric.label}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

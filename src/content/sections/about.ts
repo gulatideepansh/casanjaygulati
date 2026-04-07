@@ -4,40 +4,40 @@ import type { HighlightItem, SiteContent } from "@/content/types";
 
 export const highlights: HighlightItem[] = [
   {
-    title: "35+ Years of Practice",
+    title: "More Than 34 Years of Practice",
     description:
-      "Built on long-standing professional credibility, disciplined execution, and steady client relationships across business cycles.",
+      "A long-established practice built on continuity, professional discipline, and trusted client relationships developed over decades.",
     icon: Landmark
   },
   {
     title: "Partner-Led Service",
     description:
-      "Client matters are handled with direct senior oversight, from recurring compliance work to higher-value advisory questions.",
+      "Assignments are handled with direct senior involvement, giving clients clear communication and accountable professional oversight.",
     icon: BriefcaseBusiness
   },
   {
     title: "Compliance-First Mindset",
     description:
-      "Processes are designed around reporting discipline, confidentiality, and dependable communication at every stage.",
+      "Work is approached with attention to timeliness, documentation, confidentiality, and dependable execution at every stage.",
     icon: ShieldCheck
   }
 ];
 
 export const heroPillars: string[] = [
-  "Audit, tax, and regulatory execution",
-  "Corporate advisory and transaction support",
-  "Cross-border and international tax guidance",
-  "Company law and corporate compliance services"
+  "Audit and assurance services",
+  "Direct and indirect tax support",
+  "Corporate advisory and transaction assistance",
+  "Company law and regulatory compliance"
 ];
 
 export const about: SiteContent["about"] = {
-  title: "A chartered accountancy practice built to support compliance, transactions, and long-term business decisions.",
+  title: "About Us",
   description:
-    "Nayyar and Nayyar Co. serves individuals, entrepreneurs, SMEs, and business groups through a partner-led practice shaped by more than 35 years of experience. The firm supports clients across audit, direct tax, GST, corporate advisory, representation matters, company law support, and other recurring regulatory needs with an emphasis on practical execution and durable professional relationships."
+    "Nayyar & Nayyar, Chartered Accountants, has been serving clients since 1974 and expanded its practice base through merger on 1 January 2015.\n\nThe firm is a well-regarded chartered accountancy practice providing a comprehensive range of professional services, including direct and indirect taxation, GST, audit and assurance, mergers and acquisitions, corporate advisory, and financial services for clients in India and overseas.\n\nFor more than four decades, our commitment has been to deliver professional services of the highest standard, create measurable value for clients, and uphold the ethics and integrity of the profession through responsive, personalised advice."
 };
 
 export const metrics: SiteContent["metrics"] = [
-  { label: "Years of practice", value: "35+" },
+  { label: "Years of practice", value: "34+" },
   { label: "Core service lines", value: "12" },
   { label: "Planned branch locations", value: "2" },
   { label: "Team structure", value: "Approx. 10 professionals" }
@@ -45,12 +45,12 @@ export const metrics: SiteContent["metrics"] = [
 
 export const experience: SiteContent["experience"] = {
   eyebrow: "Experience",
-  title: "Structured professional support for businesses, promoters, and families navigating growth and compliance.",
+  title: "Professional support for businesses, promoters, and families navigating compliance and growth with confidence.",
   description:
-    "The firm is positioned to support both longstanding clients and growing businesses with practical advice, dependable turnaround, and service breadth that extends beyond basic annual filing work into planning, representation, advisory, and corporate support.",
+    "We work with clients who need more than routine filing support. The firm assists with ongoing compliance, tax planning, representation matters, business advisory, and transaction-linked requirements through a service model that values clarity, responsiveness, and continuity.",
   points: [
-    "Support for individuals, family-owned businesses, startups, SMEs, and corporate clients",
-    "Coverage across audit, direct tax, indirect tax, advisory, transaction, and company law requirements",
-    "A close-knit team structure suited to thoughtful, relationship-led service with senior access"
+    "Support for individuals, owner-managed businesses, SMEs, and corporate entities",
+    "Coverage across audit, tax, advisory, representation, and company law matters",
+    "Responsive service with direct access to senior professionals"
   ]
 };

@@ -39,7 +39,7 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="section-shell flex flex-col gap-2 py-5 text-sm text-slate-500 lg:flex-row lg:items-center lg:justify-between">
           <p>{siteContent.footer.copyright}</p>
-          <p>Professional chartered accountancy website designed for future expansion.</p>
+          <p>Serving clients with dependable chartered accountancy and compliance support.</p>
         </div>
       </div>
     </footer>

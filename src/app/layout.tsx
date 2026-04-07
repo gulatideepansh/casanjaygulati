@@ -84,12 +84,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
-        <div className="min-h-screen bg-ink text-white">
+        <div className="flex min-h-screen flex-col bg-ink text-white">
           {/* Phase 1 uses a shared public shell.
               Future portal/admin route groups can swap in protected layouts without changing the
               marketing experience. */}
           <Header />
-          {children}
+          <div className="flex-1">{children}</div>
           <Footer />
         </div>
       </body>

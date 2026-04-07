@@ -22,17 +22,22 @@ export type ServiceDetail = ServiceItem & {
   intro: string;
   bullets: string[];
   suitableFor: string[];
+  image?: string;
+  imageAlt?: string;
 };
 
 export type BranchItem = {
   name: string;
   address: string;
   note: string;
+  mapLink?: string;
 };
 
 export type PartnerItem = {
   name: string;
   role: string;
+  designation?: string;
+  qualifications?: string;
   description: string;
   image?: string;
 };
@@ -87,6 +92,12 @@ export type SiteContent = {
   inquiry: {
     heading: string;
     description: string;
+  };
+  contactForm: {
+    provider: "web3forms";
+    accessKey: string;
+    subject: string;
+    fromName: string;
   };
   footer: {
     services: string[];

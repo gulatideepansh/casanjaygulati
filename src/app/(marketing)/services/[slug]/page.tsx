@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -44,22 +45,55 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
     notFound();
   }
 
-  const Icon = service.icon;
+  const paragraphs = service.intro
+    .split("\n\n")
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
 
   return (
-    <main className="section-shell py-20 lg:py-24">
-      <section className="grid gap-8 lg:grid-cols-[1.12fr_0.88fr]">
-        <div className="panel-card p-8 sm:p-10 lg:p-14">
-          <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-brass/12 text-brass">
-            <Icon size={30} />
+    <main className="pb-20 lg:pb-24">
+      <section className="relative overflow-hidden">
+        <Image
+          src={service.image ?? "/hero-desk-stock.jpg"}
+          alt={service.imageAlt ?? service.title}
+          width={1600}
+          height={640}
+          className="h-[460px] w-full bg-[#08111d] object-contain object-center sm:h-[580px] lg:h-[720px]"
+          priority
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,13,23,0.08),rgba(6,13,23,0.34))]" />
+        <div className="absolute inset-x-0 bottom-0 h-56 bg-[linear-gradient(180deg,rgba(6,13,23,0),rgba(7,17,29,0.98))]" />
+        <div className="absolute inset-x-0 bottom-0">
+          <div className="section-shell pb-16 pt-24 text-center lg:pb-20 lg:pt-28">
+            <p className="text-xs uppercase tracking-[0.3em] text-brass">Services</p>
+            <h1 className="mx-auto mt-4 max-w-5xl font-display text-5xl leading-tight text-white sm:text-6xl">
+              {service.title}
+            </h1>
           </div>
-          <p className="mt-6 text-xs uppercase tracking-[0.3em] text-brass">Service Detail</p>
-          <h1 className="mt-4 max-w-4xl font-display text-5xl leading-tight text-white sm:text-6xl">
-            {service.title}
-          </h1>
-          <p className="mt-6 max-w-3xl text-[17px] leading-8 text-slate-300">{service.intro}</p>
+        </div>
+      </section>
 
-          <div className="mt-10 flex flex-wrap gap-3">
+      <section className="section-shell pt-10">
+        <div className="mx-auto max-w-5xl">
+          <div className="space-y-6 text-base leading-8 text-slate-300">
+            {paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+
+          {service.bullets.length > 0 ? (
+            <div className="mt-10 border-t border-white/10 pt-8">
+              <ul className="space-y-5 text-base leading-8 text-slate-300">
+                {service.bullets.map((bullet) => (
+                  <li key={bullet} className="border-l border-brass/35 pl-5">
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
+          <div className="mt-12 flex flex-wrap gap-3 border-t border-white/10 pt-8">
             <Link href="/services" className="button-secondary">
               Back to Services
             </Link>
@@ -68,54 +102,6 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
             </Link>
           </div>
         </div>
-
-        <aside className="panel-card p-8">
-          <p className="text-xs uppercase tracking-[0.3em] text-slate-400">At a glance</p>
-          <p className="mt-4 text-base leading-8 text-slate-300">{service.description}</p>
-          <div className="mt-8 border-t border-white/10 pt-8">
-            <p className="text-sm font-semibold text-white">Well suited for</p>
-            <div className="mt-4 flex flex-wrap gap-3">
-              {service.suitableFor.map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-200"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-        </aside>
-      </section>
-
-      <section className="mt-10 grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
-        <article className="panel-card p-8 sm:p-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-brass">Scope</p>
-          <h2 className="mt-4 font-display text-4xl text-white">How this service can be presented on the website</h2>
-          <div className="mt-8 space-y-4">
-            {service.bullets.map((bullet) => (
-              <div key={bullet} className="panel-card-soft flex items-start gap-4 p-5">
-                <span className="mt-1 h-2.5 w-2.5 rounded-full bg-brass" />
-                <p className="text-sm leading-7 text-slate-300">{bullet}</p>
-              </div>
-            ))}
-          </div>
-        </article>
-
-        <article className="panel-card p-8 sm:p-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-brass">Positioning</p>
-          <h2 className="mt-4 font-display text-4xl text-white">Original copy, similar business breadth</h2>
-          <p className="mt-6 text-sm leading-8 text-slate-300">
-            This page intentionally mirrors the breadth of services you pointed to, but it does not copy
-            the source wording. That keeps your website safer, cleaner, and more credible while still
-            giving you a comparable professional footprint.
-          </p>
-          <p className="mt-4 text-sm leading-8 text-slate-300">
-            If you want, we can keep refining each service page with your actual processes, industries,
-            partner names, turnaround expectations, and proof points so the site reads like your firm
-            rather than a template.
-          </p>
-        </article>
       </section>
     </main>
   );

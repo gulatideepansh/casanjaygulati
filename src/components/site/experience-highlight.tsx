@@ -2,8 +2,8 @@ import { siteContent } from "@/content/site-content";
 
 export function ExperienceHighlight() {
   return (
-    <section className="section-shell py-10">
-      <div className="grid gap-8 rounded-[2rem] border border-white/10 bg-[linear-gradient(135deg,rgba(184,145,70,0.12),rgba(11,22,40,0.92))] p-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:p-10">
+    <section className="section-shell py-16">
+      <div className="grid gap-10 border-y border-white/10 py-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.42em] text-brass">
             {siteContent.experience.eyebrow}
@@ -13,10 +13,10 @@ export function ExperienceHighlight() {
           </h2>
         </div>
         <div>
-          <p className="text-base leading-8 text-slate-200">{siteContent.experience.description}</p>
-          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          <p className="max-w-3xl text-base leading-8 text-slate-200">{siteContent.experience.description}</p>
+          <div className="mt-8 grid gap-5 sm:grid-cols-3">
             {siteContent.experience.points.map((point) => (
-              <div key={point} className="panel-card-soft p-4 text-sm leading-6 text-slate-200">
+              <div key={point} className="border-l border-brass/35 pl-4 text-sm leading-7 text-slate-200">
                 {point}
               </div>
             ))}

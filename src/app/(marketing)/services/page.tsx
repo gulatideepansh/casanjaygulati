@@ -6,39 +6,53 @@ import { siteContent } from "@/content/site-content";
 export const metadata: Metadata = {
   title: `Services | ${siteContent.firm.name}`,
   description:
-    "Explore the firm's audit, tax, advisory, representation, international tax, and corporate service offerings."
+    "Explore the firm's audit, direct tax, corporate taxation advisory, tax planning, corporate services, and representation service offerings."
 };
 
 export default function ServicesPage() {
   return (
     <main className="section-shell py-20 lg:py-24">
-      <section className="panel-card p-8 sm:p-10 lg:p-14">
+      <section className="border-b border-white/10 pb-10">
         <p className="text-xs uppercase tracking-[0.3em] text-brass">Services</p>
         <h1 className="mt-5 max-w-4xl font-display text-5xl leading-tight text-white sm:text-6xl">
-          A broader professional services platform for business, compliance, and transaction needs.
+          Professional services for compliance, advisory, tax, and transaction-related requirements.
         </h1>
         <p className="mt-6 max-w-3xl text-[17px] leading-8 text-slate-300">
-          This service architecture is inspired by the breadth common to established chartered accountancy
-          firms, but the content here is written specifically for {siteContent.firm.name}. Each page gives
-          a clearer picture of how the firm can support clients beyond a short homepage summary.
+          Our service portfolio is built around the practical needs of businesses, promoters, and
+          individuals who require dependable support across audit, taxation, regulatory compliance,
+          corporate matters, and business decision-making. Each service page outlines how the firm can
+          assist in a clear and structured manner.
         </p>
       </section>
 
-      <section className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <section className="divide-y divide-white/10">
         {siteContent.serviceDetails.map((service) => {
           const Icon = service.icon;
+          const introPreview = service.intro
+            .split("\n\n")
+            .map((paragraph) => paragraph.trim())
+            .find(Boolean);
 
           return (
-            <article key={service.slug} className="panel-card hover-lift p-7">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brass/12 text-brass">
+            <article
+              key={service.slug}
+              className="grid gap-6 py-8 md:grid-cols-[72px_1fr_auto] md:items-start md:gap-8"
+            >
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brass/10 text-brass">
                 <Icon size={24} />
               </div>
-              <h2 className="mt-6 font-display text-[2rem] leading-tight text-white">{service.title}</h2>
-              <p className="mt-4 text-[15px] leading-7 text-slate-300">{service.description}</p>
-              <p className="mt-5 text-sm leading-7 text-slate-400">{service.intro}</p>
+              <div className="max-w-4xl">
+                <h2 className="font-display text-[2.2rem] leading-tight text-white">{service.title}</h2>
+                <p className="mt-3 text-[15px] leading-7 text-slate-300">{service.description}</p>
+                {introPreview ? (
+                  <p className="mt-4 max-w-3xl border-l border-brass/35 pl-4 text-sm leading-8 text-slate-400">
+                    {introPreview}
+                  </p>
+                ) : null}
+              </div>
               <Link
                 href={`/services/${service.slug}`}
-                className="mt-7 inline-flex text-sm font-semibold text-brass transition duration-300 hover:text-white"
+                className="inline-flex items-center text-sm font-semibold text-brass transition duration-300 hover:text-white md:mt-3"
               >
                 Open service page
               </Link>
