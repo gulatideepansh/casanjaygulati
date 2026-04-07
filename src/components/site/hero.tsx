@@ -29,11 +29,11 @@ export function Hero() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-slate-300">
             <div className="flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-brass" />
-              {siteContent.firm.yearsExperience}+ years of experience
+              More than 3 decades of experience
             </div>
             <div className="flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-brass/80" />
-              Approximately 10-person professional team
+              25+ person professional team
             </div>
           </div>
           <div className="mt-8 flex flex-wrap justify-center gap-3">

@@ -4,7 +4,7 @@ import type { HighlightItem, SiteContent } from "@/content/types";
 
 export const highlights: HighlightItem[] = [
   {
-    title: "More Than 34 Years of Practice",
+    title: "More Than 3 Decades of Practice",
     description:
       "A long-established practice built on continuity, professional discipline, and trusted client relationships developed over decades.",
     icon: Landmark
@@ -33,14 +33,14 @@ export const heroPillars: string[] = [
 export const about: SiteContent["about"] = {
   title: "About Us",
   description:
-    "Nayyar & Nayyar, Chartered Accountants, has been serving clients since 1974 and expanded its practice base through merger on 1 January 2015.\n\nThe firm is a well-regarded chartered accountancy practice providing a comprehensive range of professional services, including direct and indirect taxation, GST, audit and assurance, mergers and acquisitions, corporate advisory, and financial services for clients in India and overseas.\n\nFor more than four decades, our commitment has been to deliver professional services of the highest standard, create measurable value for clients, and uphold the ethics and integrity of the profession through responsive, personalised advice."
+    "Nayyar & Nayyar, Chartered Accountants, has been serving clients since 1974 and expanded its practice base through merger on 1 January 2015.\n\nThe firm is a well-regarded chartered accountancy practice providing a comprehensive range of professional services, including direct and indirect taxation, GST, audit and assurance, mergers and acquisitions, corporate advisory, and financial services for clients in India and overseas.\n\nFor more than 3 decades, our commitment has been to deliver professional services of the highest standard, create measurable value for clients, and uphold the ethics and integrity of the profession through responsive, personalised advice."
 };
 
 export const metrics: SiteContent["metrics"] = [
-  { label: "Years of practice", value: "34+" },
+  { label: "Years of practice", value: "3 decades" },
   { label: "Core service lines", value: "12" },
   { label: "Planned branch locations", value: "2" },
-  { label: "Team structure", value: "Approx. 10 professionals" }
+  { label: "Team structure", value: "25+ professionals" }
 ];
 
 export const experience: SiteContent["experience"] = {

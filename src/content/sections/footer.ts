@@ -9,5 +9,5 @@ export const footer: SiteContent["footer"] = {
     "Corporate Services",
     "Representation Services"
   ],
-  copyright: `(c) ${new Date().getFullYear()} Nayyar and Nayyar Co. All rights reserved.`
+  copyright: `(c) ${new Date().getFullYear()} Nayyar & Nayyar Co. All rights reserved.`
 };
