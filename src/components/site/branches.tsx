@@ -15,8 +15,32 @@ export function Branches() {
             <p className="text-xs uppercase tracking-[0.35em] text-brass">Office {index + 1}</p>
             <h3 className="mt-4 font-display text-[2rem] text-white">{branch.name}</h3>
             <p className="mt-4 max-w-xl text-base leading-7 text-slate-300">{branch.address}</p>
-            <p className="mt-5 text-sm leading-7 text-slate-400">{branch.note}</p>
-            {branch.mapLink ? (
+            {branch.mapEmbedLink ? (
+              <div className="mt-8">
+                <div className="mb-4 flex items-center justify-between gap-4">
+                  <p className="text-xs uppercase tracking-[0.35em] text-brass">Office Location</p>
+                  {branch.mapLink ? (
+                    <a
+                      href={branch.mapLink}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-sm font-semibold text-white transition duration-300 hover:text-brass"
+                    >
+                      Open in Google Maps
+                    </a>
+                  ) : null}
+                </div>
+                <div className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.03]">
+                  <iframe
+                    title={`${branch.name} map`}
+                    src={branch.mapEmbedLink}
+                    className="h-[280px] w-full"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                </div>
+              </div>
+            ) : branch.mapLink ? (
               <a
                 href={branch.mapLink}
                 target="_blank"

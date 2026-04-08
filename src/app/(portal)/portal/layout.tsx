@@ -12,16 +12,16 @@ export default async function PortalLayout({
   const currentUser = await getCurrentUser();
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(184,145,70,0.14),transparent_22%),linear-gradient(180deg,#07111d_0%,#09121f_48%,#060d17_100%)]">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(106,167,172,0.16),transparent_22%),linear-gradient(180deg,#07111b_0%,#0a1624_48%,#050c15_100%)]">
       <header className="border-b border-white/10 bg-black/10 backdrop-blur-xl">
-        <div className="section-shell flex flex-col gap-5 py-5 lg:flex-row lg:items-center lg:justify-between">
+        <div className="section-shell flex flex-col gap-6 py-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.35em] text-brass">Employee Portal</p>
-            <p className="mt-2 font-display text-2xl text-white">Casanjaygulati</p>
+            <p className="mt-2 font-display text-2xl text-white">Nayyar &amp; Nayyar</p>
           </div>
-          <div className="flex flex-col gap-4 lg:items-end">
+          <div className="flex flex-col gap-5 lg:items-end">
             <LiveClock />
-            <div className="flex items-center gap-4 text-sm text-slate-300">
+            <div className="flex flex-wrap items-center gap-4 text-sm text-slate-300 lg:justify-end">
               <Link href="/" className="transition hover:text-white">
                 Public Website
               </Link>
@@ -30,13 +30,22 @@ export default async function PortalLayout({
                   <Link href="/portal/dashboard" className="transition hover:text-white">
                     Dashboard
                   </Link>
+                  <Link href="/portal/timesheets" className="transition hover:text-white">
+                    Timesheets
+                  </Link>
                   {currentUser.role === "ADMIN" ? (
                     <>
                       <Link href="/portal/staff" className="transition hover:text-white">
                         Staff
                       </Link>
+                      <Link href="/portal/past-staff" className="transition hover:text-white">
+                        Past Staff
+                      </Link>
                       <Link href="/portal/tasks" className="transition hover:text-white">
                         Tasks
+                      </Link>
+                      <Link href="/portal/activity" className="transition hover:text-white">
+                        Activity
                       </Link>
                     </>
                   ) : null}

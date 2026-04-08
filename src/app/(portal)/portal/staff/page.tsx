@@ -1,7 +1,9 @@
 import Image from "next/image";
-import { UserRole } from "@prisma/client";
+import Link from "next/link";
+import { AccountStatus, UserRole } from "@prisma/client";
 
 import { AdminStaffForm } from "@/components/portal/admin-staff-form";
+import { DeactivateStaffControl } from "@/components/portal/deactivate-staff-control";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { requireAdmin } from "@/lib/auth/session";
 import { getDb } from "@/lib/db";
@@ -16,7 +18,8 @@ export default async function StaffManagementPage() {
 
   const staffMembers = await getDb().user.findMany({
     where: {
-      role: UserRole.STAFF
+      role: UserRole.STAFF,
+      status: AccountStatus.APPROVED
     },
     orderBy: [{ firstName: "asc" }, { lastName: "asc" }]
   });
@@ -27,8 +30,8 @@ export default async function StaffManagementPage() {
         <div className="pt-10">
           <SectionHeading
             eyebrow="Staff Management"
-            title="Create and maintain staff accounts"
-            description="Staff creation and account removal now live on a dedicated page so the dashboard stays operational and uncluttered."
+            title="Staff management"
+            description="Create staff accounts and manage access."
           />
 
           <div className="mt-8 border-y border-white/10 py-8">
@@ -44,15 +47,21 @@ export default async function StaffManagementPage() {
           <SectionHeading
             eyebrow="Staff Register"
             title="All staff accounts"
-            description="Every staff account appears as a simple row with direct controls."
+            description="Manage active staff records and move former team members into the past staff register."
           />
 
+          <div className="mt-8 flex flex-wrap items-center gap-3 text-sm text-slate-300">
+            <Link href="/portal/past-staff" className="button-secondary">
+              View Past Staff
+            </Link>
+          </div>
+
           <div className="mt-8 border-y border-white/10">
-            <div className="hidden grid-cols-[1.05fr_0.95fr_0.7fr_0.55fr] gap-5 border-b border-white/10 px-4 py-4 text-xs uppercase tracking-[0.26em] text-brass lg:grid">
+            <div className="hidden grid-cols-[1.05fr_0.95fr_0.7fr_0.7fr] gap-5 border-b border-white/10 px-4 py-4 text-xs uppercase tracking-[0.26em] text-brass lg:grid">
               <span>Staff member</span>
               <span>Contact</span>
               <span>Login details</span>
-              <span>Action</span>
+              <span>Actions</span>
             </div>
 
             {staffMembers.length === 0 ? (
@@ -62,7 +71,7 @@ export default async function StaffManagementPage() {
             ) : (
               staffMembers.map((staffUser) => (
                 <div key={staffUser.id} className="border-b border-white/10 px-4 py-5 last:border-b-0">
-                  <div className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr_0.7fr_0.55fr] lg:items-start">
+                  <div className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr_0.7fr_0.7fr] lg:items-start">
                     <div className="flex items-start gap-4">
                       <div className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-white/10 text-base font-semibold text-white">
                         {staffUser.profileImageDataUrl ? (
@@ -98,7 +107,8 @@ export default async function StaffManagementPage() {
                       <p>Role: <span className="text-white">{staffUser.role}</span></p>
                     </div>
 
-                    <div className="lg:text-right">
+                    <div className="flex flex-col items-start gap-4 lg:items-end">
+                      <DeactivateStaffControl staffUserId={staffUser.id} />
                       <form action={deleteStaffAction.bind(null, staffUser.id)}>
                         <button
                           type="submit"

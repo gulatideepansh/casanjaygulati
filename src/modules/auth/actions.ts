@@ -30,6 +30,27 @@ function buildErrorState(message: string, fieldErrors?: Record<string, string[] 
   };
 }
 
+async function createAuditLog({
+  actorUserId,
+  targetUserId,
+  action,
+  metadata
+}: {
+  actorUserId?: string;
+  targetUserId?: string;
+  action: string;
+  metadata?: Record<string, unknown>;
+}) {
+  await getDb().auditLog.create({
+    data: {
+      actorUserId,
+      targetUserId,
+      action,
+      metadata: metadata ? JSON.stringify(metadata) : null
+    }
+  });
+}
+
 async function resolveProfileImage(file: FormDataEntryValue | null) {
   if (!(file instanceof File) || file.size === 0) {
     return null;
@@ -95,6 +116,10 @@ export async function signInAction(
 
   if (!user) {
     return buildErrorState("We could not find an account with those credentials.");
+  }
+
+  if (user.status !== AccountStatus.APPROVED) {
+    return buildErrorState("This staff account is inactive. Please contact the administrator.");
   }
 
   const passwordMatches = await verifyPassword(user.passwordHash, parsedInput.data.password);
@@ -165,10 +190,13 @@ export async function createStaffByAdminAction(
   const passwordHash = await hashPassword(parsedInput.data.password);
 
   try {
+    let createdStaffUserId = "";
+    let createdStaffName = "";
+
     await getDb().$transaction(async (tx) => {
       const staffId = await getNextStaffId(tx);
 
-      await tx.user.create({
+      const createdStaffUser = await tx.user.create({
         data: {
           username: parsedInput.data.username,
           firstName: parsedInput.data.firstName,
@@ -183,6 +211,19 @@ export async function createStaffByAdminAction(
           approvedById: adminUser.id
         }
       });
+
+      createdStaffUserId = createdStaffUser.id;
+      createdStaffName = `${createdStaffUser.firstName} ${createdStaffUser.lastName}`;
+    });
+
+    await createAuditLog({
+      actorUserId: adminUser.id,
+      targetUserId: createdStaffUserId,
+      action: "staff.created",
+      metadata: {
+        staffName: createdStaffName,
+        username: parsedInput.data.username
+      }
     });
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
@@ -194,6 +235,7 @@ export async function createStaffByAdminAction(
 
   revalidatePath("/portal/dashboard");
   revalidatePath("/portal/staff");
+  revalidatePath("/portal/activity");
 
   return {
     status: "success",
@@ -345,7 +387,230 @@ export async function deleteStaffAction(staffUserId: string) {
     }
   });
 
+  await createAuditLog({
+    actorUserId: adminUser.id,
+    action: "staff.deleted",
+    metadata: {
+      staffName: `${staffUser.firstName} ${staffUser.lastName}`,
+      username: staffUser.username,
+      email: staffUser.email
+    }
+  });
+
   revalidatePath("/portal/dashboard");
   revalidatePath("/portal/staff");
   revalidatePath("/portal/tasks");
+  revalidatePath("/portal/activity");
+}
+
+export async function deactivateStaffAction(staffUserId: string, formData: FormData) {
+  const adminUser = await requireAdmin();
+  const rawTenure = formData.get("tenure");
+  const tenureLabel = typeof rawTenure === "string" ? rawTenure.trim() : "";
+
+  if (!/^(0[1-9]|1[0-2])\/\d{4} to (0[1-9]|1[0-2])\/\d{4}$/.test(tenureLabel)) {
+    return;
+  }
+
+  const staffUser = await getDb().user.findUnique({
+    where: {
+      id: staffUserId
+    }
+  });
+
+  if (!staffUser || staffUser.role !== UserRole.STAFF) {
+    return;
+  }
+
+  if (staffUser.id === adminUser.id) {
+    return;
+  }
+
+  await getDb().$transaction(async (tx) => {
+    await tx.deactivatedStaff.upsert({
+      where: {
+        originalUserId: staffUser.id
+      },
+      update: {
+        username: staffUser.username,
+        firstName: staffUser.firstName,
+        lastName: staffUser.lastName,
+        email: staffUser.email,
+        staffId: staffUser.staffId,
+        profileImageDataUrl: staffUser.profileImageDataUrl,
+        role: staffUser.role,
+        tenureLabel,
+        joinedAt: staffUser.createdAt,
+        lastLoginAt: staffUser.lastLoginAt,
+        deactivatedAt: new Date(),
+        deactivatedById: adminUser.id
+      },
+      create: {
+        originalUserId: staffUser.id,
+        username: staffUser.username,
+        firstName: staffUser.firstName,
+        lastName: staffUser.lastName,
+        email: staffUser.email,
+        staffId: staffUser.staffId,
+        profileImageDataUrl: staffUser.profileImageDataUrl,
+        role: staffUser.role,
+        tenureLabel,
+        joinedAt: staffUser.createdAt,
+        lastLoginAt: staffUser.lastLoginAt,
+        deactivatedById: adminUser.id
+      }
+    });
+
+    await tx.user.update({
+      where: {
+        id: staffUser.id
+      },
+      data: {
+        status: AccountStatus.DEACTIVATED
+      }
+    });
+
+    await tx.session.deleteMany({
+      where: {
+        userId: staffUser.id
+      }
+    });
+
+    await tx.passwordResetToken.deleteMany({
+      where: {
+        userId: staffUser.id
+      }
+    });
+  });
+
+  await createAuditLog({
+    actorUserId: adminUser.id,
+    action: "staff.deactivated",
+    metadata: {
+      staffName: `${staffUser.firstName} ${staffUser.lastName}`,
+      username: staffUser.username,
+      email: staffUser.email,
+      tenure: tenureLabel
+    }
+  });
+
+  revalidatePath("/portal/dashboard");
+  revalidatePath("/portal/staff");
+  revalidatePath("/portal/past-staff");
+  revalidatePath("/portal/tasks");
+  revalidatePath("/portal/activity");
+}
+
+export async function restoreStaffAction(archiveId: string, formData: FormData) {
+  const adminUser = await requireAdmin();
+  const archivedStaff = await getDb().deactivatedStaff.findUnique({
+    where: {
+      id: archiveId
+    }
+  });
+
+  if (!archivedStaff) {
+    return;
+  }
+
+  const existingUser =
+    archivedStaff.originalUserId
+      ? await getDb().user.findUnique({
+          where: {
+            id: archivedStaff.originalUserId
+          }
+        })
+      : null;
+
+  if (existingUser) {
+    await getDb().$transaction(async (tx) => {
+      await tx.user.update({
+        where: {
+          id: existingUser.id
+        },
+        data: {
+          status: AccountStatus.APPROVED
+        }
+      });
+
+      await tx.deactivatedStaff.delete({
+        where: {
+          id: archivedStaff.id
+        }
+      });
+    });
+  } else {
+    const password = formData.get("password");
+    const confirmPassword = formData.get("confirmPassword");
+
+    if (typeof password !== "string" || typeof confirmPassword !== "string" || password.length < 8 || password !== confirmPassword) {
+      return;
+    }
+
+    const passwordHash = await hashPassword(password);
+
+    await getDb().$transaction(async (tx) => {
+      const restoredUser = await tx.user.create({
+        data: {
+          username: archivedStaff.username,
+          firstName: archivedStaff.firstName,
+          lastName: archivedStaff.lastName,
+          email: archivedStaff.email,
+          passwordHash,
+          role: UserRole.STAFF,
+          status: AccountStatus.APPROVED,
+          staffId: archivedStaff.staffId,
+          profileImageDataUrl: archivedStaff.profileImageDataUrl,
+          approvedAt: new Date(),
+          approvedById: adminUser.id,
+          lastLoginAt: archivedStaff.lastLoginAt,
+          createdAt: archivedStaff.joinedAt ?? new Date()
+        }
+      });
+
+      await tx.deactivatedStaff.delete({
+        where: {
+          id: archivedStaff.id
+        }
+      });
+
+      await tx.auditLog.create({
+        data: {
+          actorUserId: adminUser.id,
+          targetUserId: restoredUser.id,
+          action: "staff.restored",
+          metadata: JSON.stringify({
+            staffName: `${archivedStaff.firstName} ${archivedStaff.lastName}`,
+            username: archivedStaff.username,
+            restoredFromArchiveId: archivedStaff.id
+          })
+        }
+      });
+    });
+
+    revalidatePath("/portal/dashboard");
+    revalidatePath("/portal/staff");
+    revalidatePath("/portal/past-staff");
+    revalidatePath("/portal/tasks");
+    revalidatePath("/portal/activity");
+
+    return;
+  }
+
+  await createAuditLog({
+    actorUserId: adminUser.id,
+    targetUserId: existingUser?.id,
+    action: "staff.restored",
+    metadata: {
+      staffName: `${archivedStaff.firstName} ${archivedStaff.lastName}`,
+      username: archivedStaff.username,
+      restoredFromArchiveId: archivedStaff.id
+    }
+  });
+
+  revalidatePath("/portal/dashboard");
+  revalidatePath("/portal/staff");
+  revalidatePath("/portal/past-staff");
+  revalidatePath("/portal/tasks");
+  revalidatePath("/portal/activity");
 }

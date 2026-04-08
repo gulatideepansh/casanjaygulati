@@ -1,19 +1,27 @@
 import type { BranchItem, PartnerItem, SiteContent } from "@/content/types";
 
+function createGoogleMapsLink(query: string) {
+  return `https://www.google.com/maps?q=${encodeURIComponent(query)}`;
+}
+
+function createGoogleMapsEmbedLink(query: string) {
+  return `https://www.google.com/maps?output=embed&q=${encodeURIComponent(query)}`;
+}
+
 export const branches: BranchItem[] = [
   {
     name: "Lajpat Nagar Office",
     address: "A-44, Basement, Amar Colony, Lajpat Nagar 4, New Delhi 110024",
     note: "Primary office for client meetings, tax matters, audit discussions, and ongoing professional coordination.",
-    mapLink:
-      "https://www.google.com/maps/search/?api=1&query=A-44%2C+Basement%2C+Amar+Colony%2C+Lajpat+Nagar+4%2C+New+Delhi+110024"
+    mapLink: createGoogleMapsLink("A-44, Basement, Amar Colony, Lajpat Nagar 4, New Delhi 110024"),
+    mapEmbedLink: createGoogleMapsEmbedLink("A-44, Basement, Amar Colony, Lajpat Nagar 4, New Delhi 110024")
   },
   {
     name: "Karol Bagh Office",
     address: "102, 82 Abhinash Mansion, Joshi Road, Karol Bagh, New Delhi 110005",
     note: "Additional office presence supporting accessibility and professional coordination across Delhi.",
-    mapLink:
-      "https://www.google.com/maps/search/?api=1&query=102%2C+82+Abhinash+Mansion%2C+Joshi+Road%2C+Karol+Bagh%2C+New+Delhi+110005"
+    mapLink: createGoogleMapsLink("Abhinash Mansion, 82/3 Joshi Road, Karol Bagh, New Delhi 110005"),
+    mapEmbedLink: createGoogleMapsEmbedLink("Abhinash Mansion, 82/3 Joshi Road, Karol Bagh, New Delhi 110005")
   }
 ];
 
@@ -28,12 +36,12 @@ export const partners: PartnerItem[] = [
     image: "/sanjay-gulati.png"
   },
   {
-    name: "Pawan Gulati",
+    name: "Pavan Gulati",
     role: "Chartered Accountant",
     designation: "Chartered Accountant",
     qualifications: "B.Com, FCA, DISA",
     description:
-      "Pawan Gulati supports clients across finance, compliance, and advisory requirements with attention to detail, disciplined execution, and professional continuity.",
+      "Pavan Gulati supports clients across finance, compliance, and advisory requirements with attention to detail, disciplined execution, and professional continuity.",
     image: "/pawan-gulati.png"
   }
 ];

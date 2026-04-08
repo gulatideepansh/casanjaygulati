@@ -13,8 +13,8 @@ html {
 body {
   margin: 0;
   background:
-    radial-gradient(circle at top, rgba(184, 145, 70, 0.08), transparent 20%),
-    linear-gradient(180deg, #07111d 0%, #09121f 45%, #060d17 100%);
+    radial-gradient(circle at top, rgba(106, 167, 172, 0.12), transparent 24%),
+    linear-gradient(180deg, #07111b 0%, #0a1624 46%, #050c15 100%);
   color: #f8fafc;
 }
 
@@ -39,7 +39,7 @@ a {
 }
 
 ::selection {
-  background: rgba(184, 145, 70, 0.35);
+  background: rgba(106, 167, 172, 0.35);
   color: #fff;
 }
 
@@ -61,7 +61,7 @@ a {
   }
 
   .button-primary {
-    @apply rounded-full border border-brass/50 bg-brass px-6 py-3 text-sm font-semibold text-ink transition duration-300 hover:-translate-y-0.5 hover:bg-[#c9a865];
+    @apply rounded-full border border-brass/50 bg-brass px-6 py-3 text-sm font-semibold text-ink transition duration-300 hover:-translate-y-0.5 hover:bg-[#83bcc0];
   }
 
   .button-secondary {
@@ -126,7 +126,7 @@ a {
   width: min(92%, 1100px);
   height: 1px;
   transform: translateX(-50%);
-  background: linear-gradient(90deg, transparent, rgba(184, 145, 70, 0.35), transparent);
+  background: linear-gradient(90deg, transparent, rgba(106, 167, 172, 0.35), transparent);
 }
 
 @keyframes fade-up {

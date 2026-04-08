@@ -43,6 +43,23 @@ async function createAuditLog({
   });
 }
 
+export async function dismissActivityNotificationAction(auditLogId: string) {
+  const adminUser = await requireAdmin();
+
+  await getDb().auditLog.update({
+    where: {
+      id: auditLogId
+    },
+    data: {
+      dismissedAt: new Date(),
+      dismissedById: adminUser.id
+    }
+  });
+
+  revalidatePath("/portal/dashboard");
+  revalidatePath("/portal/activity");
+}
+
 async function markMissedClockOuts(userId: string) {
   const todayKey = getPortalDateKey();
 
@@ -107,6 +124,7 @@ export async function clockInAction() {
   });
 
   revalidatePath("/portal/dashboard");
+  revalidatePath("/portal/activity");
 }
 
 export async function clockOutAction() {
@@ -155,6 +173,7 @@ export async function clockOutAction() {
   });
 
   revalidatePath("/portal/dashboard");
+  revalidatePath("/portal/activity");
 }
 
 export async function assignTaskAction(
@@ -218,6 +237,7 @@ export async function assignTaskAction(
 
   revalidatePath("/portal/dashboard");
   revalidatePath("/portal/tasks");
+  revalidatePath("/portal/activity");
 
   return buildTaskState(`Task assigned to ${assignedUser.firstName} ${assignedUser.lastName}.`, "success");
 }
@@ -267,4 +287,48 @@ export async function updateTaskStatusAction(formData: FormData) {
 
   revalidatePath("/portal/dashboard");
   revalidatePath("/portal/tasks");
+  revalidatePath("/portal/activity");
+}
+
+export async function deleteTaskAction(formData: FormData) {
+  const adminUser = await requireAdmin();
+  const taskId = formData.get("taskId");
+
+  if (typeof taskId !== "string" || taskId.length === 0) {
+    return;
+  }
+
+  const task = await getDb().task.findUnique({
+    where: {
+      id: taskId
+    },
+    include: {
+      assignedTo: true
+    }
+  });
+
+  if (!task) {
+    return;
+  }
+
+  await getDb().task.delete({
+    where: {
+      id: task.id
+    }
+  });
+
+  await createAuditLog({
+    actorUserId: adminUser.id,
+    targetUserId: task.assignedToUserId,
+    action: "task.deleted",
+    metadata: {
+      taskId: task.id,
+      title: task.title,
+      priority: task.priority
+    }
+  });
+
+  revalidatePath("/portal/dashboard");
+  revalidatePath("/portal/tasks");
+  revalidatePath("/portal/activity");
 }

@@ -31,6 +31,7 @@ export type BranchItem = {
   address: string;
   note: string;
   mapLink?: string;
+  mapEmbedLink?: string;
 };
 
 export type PartnerItem = {

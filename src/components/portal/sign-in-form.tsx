@@ -39,7 +39,7 @@ export function SignInForm() {
           <label htmlFor="password" className="auth-label mb-0">
             Password
           </label>
-          <Link href="/portal/forgot-password" className="text-sm text-brass transition hover:text-[#d7b979]">
+          <Link href="/portal/forgot-password" className="text-sm text-brass transition hover:text-[#8bc6ca]">
             Forgot password?
           </Link>
         </div>

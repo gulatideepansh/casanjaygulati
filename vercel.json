@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/weekly-timesheets",
+      "schedule": "40 18 * * 6"
+    }
+  ]
+}

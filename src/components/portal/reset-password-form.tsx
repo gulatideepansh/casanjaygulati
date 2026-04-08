@@ -59,7 +59,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
       <SubmitButton label="Update Password" pendingLabel="Updating Password..." />
 
       {state.status === "success" ? (
-        <Link href="/portal/sign-in" className="block text-center text-sm text-brass transition hover:text-[#d7b979]">
+        <Link href="/portal/sign-in" className="block text-center text-sm text-brass transition hover:text-[#8bc6ca]">
           Return to sign in
         </Link>
       ) : null}

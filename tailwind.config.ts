@@ -9,9 +9,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#09111f",
+        ink: "#07131c",
         mist: "#f4f1ea",
-        brass: "#b89146",
+        brass: "#6aa7ac",
         stone: "#9ca3af",
         line: "rgba(255, 255, 255, 0.08)"
       },
@@ -24,7 +24,7 @@ const config: Config = {
       },
       backgroundImage: {
         "hero-radial":
-          "radial-gradient(circle at top left, rgba(184, 145, 70, 0.22), transparent 35%), radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.12), transparent 25%), linear-gradient(135deg, #08111f 0%, #10213d 52%, #08111f 100%)"
+          "radial-gradient(circle at top left, rgba(106, 167, 172, 0.24), transparent 35%), radial-gradient(circle at 80% 20%, rgba(188, 206, 220, 0.12), transparent 24%), linear-gradient(135deg, #08111b 0%, #112338 52%, #07111b 100%)"
       }
     }
   },

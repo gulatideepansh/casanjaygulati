@@ -68,7 +68,7 @@ export async function sendPasswordResetEmail({
         <p>
           <a
             href="${resetUrl}"
-            style="display: inline-block; padding: 12px 20px; border-radius: 999px; background: #b89146; color: #09111f; font-weight: 700; text-decoration: none;"
+            style="display: inline-block; padding: 12px 20px; border-radius: 999px; background: #6aa7ac; color: #07131c; font-weight: 700; text-decoration: none;"
           >
             Reset password
           </a>

@@ -24,7 +24,7 @@ export default async function ForgotPasswordPage() {
       footer={
         <p className="text-sm text-slate-400">
           Remembered your password?{" "}
-          <Link href="/portal/sign-in" className="text-brass transition hover:text-[#d7b979]">
+          <Link href="/portal/sign-in" className="text-brass transition hover:text-[#8bc6ca]">
             Return to sign in
           </Link>
         </p>

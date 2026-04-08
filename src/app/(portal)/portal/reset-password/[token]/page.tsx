@@ -37,7 +37,7 @@ export default async function ResetPasswordPage({ params }: ResetPasswordPagePro
       footer={
         <p className="text-sm text-slate-400">
           Need a new link?{" "}
-          <Link href="/portal/forgot-password" className="text-brass transition hover:text-[#d7b979]">
+          <Link href="/portal/forgot-password" className="text-brass transition hover:text-[#8bc6ca]">
             Request another reset email
           </Link>
         </p>

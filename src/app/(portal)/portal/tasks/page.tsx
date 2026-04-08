@@ -1,15 +1,40 @@
 import Link from "next/link";
-import { UserRole } from "@prisma/client";
+import { AccountStatus, UserRole } from "@prisma/client";
 
 import { AdminTaskForm } from "@/components/portal/admin-task-form";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { requireAdmin } from "@/lib/auth/session";
 import { getDb } from "@/lib/db";
-import { formatPortalDate, formatPortalDateTime } from "@/lib/portal/time";
+import { formatPortalDate, formatPortalDateTime, getPortalDueState } from "@/lib/portal/time";
+import { deleteTaskAction } from "@/modules/portal/actions";
 
 export const metadata = {
   title: "Task Management | Casanjaygulati"
 };
+
+function getTaskPriorityClass(priority: string) {
+  switch (priority) {
+    case "URGENT":
+      return "text-rose-300";
+    case "HIGH":
+      return "text-rose-200";
+    case "MEDIUM":
+      return "text-amber-200";
+    default:
+      return "text-emerald-200";
+  }
+}
+
+function getTaskDueTone(dueDate: Date) {
+  switch (getPortalDueState(dueDate)) {
+    case "OVERDUE":
+      return "text-rose-300";
+    case "TODAY":
+      return "text-amber-200";
+    default:
+      return "text-emerald-300";
+  }
+}
 
 export default async function TaskManagementPage({
   searchParams
@@ -22,7 +47,8 @@ export default async function TaskManagementPage({
   const [staffMembers, tasks] = await Promise.all([
     getDb().user.findMany({
       where: {
-        role: UserRole.STAFF
+        role: UserRole.STAFF,
+        status: AccountStatus.APPROVED
       },
       orderBy: [{ firstName: "asc" }, { lastName: "asc" }],
       select: {
@@ -33,7 +59,12 @@ export default async function TaskManagementPage({
       }
     }),
     getDb().task.findMany({
-      orderBy: [{ status: "asc" }, { dueDate: "asc" }, { createdAt: "desc" }],
+      where: {
+        assignedTo: {
+          status: AccountStatus.APPROVED
+        }
+      },
+      orderBy: [{ dueDate: "asc" }, { createdAt: "desc" }],
       include: {
         assignedTo: true,
         createdBy: true
@@ -53,8 +84,8 @@ export default async function TaskManagementPage({
         <div className="pt-10">
           <SectionHeading
             eyebrow="Task Management"
-            title="Assign work from one dedicated page"
-            description="Task assignment now lives separately from the dashboard, with visible success and error feedback so it is clear when a task has been created."
+            title="Task management"
+            description="Assign work and review current workload."
           />
 
           <div className="mt-8 flex flex-wrap items-center gap-3 text-sm text-slate-300">
@@ -92,13 +123,14 @@ export default async function TaskManagementPage({
           />
 
           <div className="mt-8 border-y border-white/10">
-            <div className="hidden grid-cols-[1.05fr_0.8fr_0.55fr_0.65fr_0.7fr_0.8fr] gap-5 border-b border-white/10 px-4 py-4 text-xs uppercase tracking-[0.26em] text-brass lg:grid">
+            <div className="hidden grid-cols-[1.05fr_0.8fr_0.55fr_0.65fr_0.7fr_0.8fr_0.55fr] gap-5 border-b border-white/10 px-4 py-4 text-xs uppercase tracking-[0.26em] text-brass lg:grid">
               <span>Task</span>
               <span>Assigned to</span>
               <span>Priority</span>
               <span>Status</span>
               <span>Due</span>
               <span>Meta</span>
+              <span>Actions</span>
             </div>
 
             {tasks.length === 0 ? (
@@ -108,25 +140,34 @@ export default async function TaskManagementPage({
             ) : (
               tasks.map((task) => (
                 <div key={task.id} className="border-b border-white/10 px-4 py-5 last:border-b-0">
-                  <div className="grid gap-5 lg:grid-cols-[1.05fr_0.8fr_0.55fr_0.65fr_0.7fr_0.8fr]">
+                  <div className="grid gap-5 lg:grid-cols-[1.05fr_0.8fr_0.55fr_0.65fr_0.7fr_0.8fr_0.55fr] lg:items-start">
                     <div>
-                      <p className="font-semibold text-white">{task.title}</p>
+                      <p className={`font-semibold ${getTaskDueTone(task.dueDate)}`}>{task.title}</p>
                       <p className="mt-2 text-sm leading-7 text-slate-300">{task.description}</p>
                     </div>
                     <div className="text-sm leading-7 text-slate-300">
                       {task.assignedTo.firstName} {task.assignedTo.lastName}
                     </div>
-                    <div className="text-sm font-semibold uppercase tracking-[0.22em] text-brass">
+                    <div className={`text-sm font-semibold uppercase tracking-[0.22em] ${getTaskPriorityClass(task.priority)}`}>
                       {task.priority}
                     </div>
                     <div className="text-sm leading-7 text-white">
                       {task.status.replaceAll("_", " ")}
                     </div>
-                    <div className="text-sm leading-7 text-slate-300">{formatPortalDate(task.dueDate)}</div>
+                    <div className={`text-sm leading-7 ${getTaskDueTone(task.dueDate)}`}>{formatPortalDate(task.dueDate)}</div>
                     <div className="text-sm leading-7 text-slate-300">
                       <p>By {task.createdBy.firstName} {task.createdBy.lastName}</p>
                       <p>Created {formatPortalDateTime(task.createdAt)}</p>
                     </div>
+                    <form action={deleteTaskAction} className="lg:text-right">
+                      <input type="hidden" name="taskId" value={task.id} />
+                      <button
+                        type="submit"
+                        className="text-sm font-semibold text-rose-200 transition hover:text-white"
+                      >
+                        Delete
+                      </button>
+                    </form>
                   </div>
                 </div>
               ))

@@ -16,6 +16,7 @@ enum UserRole {
 enum AccountStatus {
   APPROVED
   PENDING
+  DEACTIVATED
 }
 
 enum AttendanceStatus {
@@ -61,10 +62,35 @@ model User {
   sessions            Session[]
   passwordResetTokens PasswordResetToken[]
   attendanceRecords   Attendance[]
+  weeklyTimesheets    WeeklyTimesheet[]
   assignedTasks       Task[]               @relation("AssignedTasks")
   createdTasks        Task[]               @relation("CreatedTasks")
   auditActorLogs      AuditLog[]           @relation("AuditActor")
   auditTargetLogs     AuditLog[]           @relation("AuditTarget")
+  dismissedAuditLogs  AuditLog[]           @relation("AuditDismissedBy")
+  deactivatedStaffRecords DeactivatedStaff[] @relation("DeactivatedBy")
+}
+
+model DeactivatedStaff {
+  id                  String    @id @default(cuid())
+  originalUserId      String?   @unique
+  username            String
+  firstName           String
+  lastName            String
+  email               String?
+  staffId             String?
+  profileImageDataUrl String?
+  role                UserRole  @default(STAFF)
+  tenureLabel         String
+  joinedAt            DateTime?
+  lastLoginAt         DateTime?
+  deactivatedAt       DateTime  @default(now())
+  deactivatedById     String?
+  deactivatedBy       User?     @relation("DeactivatedBy", fields: [deactivatedById], references: [id], onDelete: SetNull)
+
+  @@index([deactivatedAt])
+  @@index([staffId])
+  @@index([username])
 }
 
 model Session {
@@ -117,6 +143,41 @@ model Attendance {
   @@index([status])
 }
 
+model WeeklyTimesheet {
+  id                  String                 @id @default(cuid())
+  userId              String
+  weekStartDate       DateTime
+  weekEndDate         DateTime
+  generatedAt         DateTime               @default(now())
+  totalDaysWorked     Int                    @default(0)
+  totalMinutesWorked  Int                    @default(0)
+  lateCount           Int                    @default(0)
+  earlyClockOutCount  Int                    @default(0)
+  missedClockOutCount Int                    @default(0)
+  statusSummary       String
+  notes               String?
+  user                User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  entries             WeeklyTimesheetEntry[]
+
+  @@unique([userId, weekStartDate, weekEndDate])
+  @@index([userId, weekStartDate])
+  @@index([weekStartDate, weekEndDate])
+}
+
+model WeeklyTimesheetEntry {
+  id               String           @id @default(cuid())
+  timesheetId      String
+  workDate         DateTime
+  clockInAt        DateTime?
+  clockOutAt       DateTime?
+  attendanceStatus String
+  workedMinutes    Int              @default(0)
+  timesheet        WeeklyTimesheet  @relation(fields: [timesheetId], references: [id], onDelete: Cascade)
+
+  @@unique([timesheetId, workDate])
+  @@index([workDate])
+}
+
 model Task {
   id               String       @id @default(cuid())
   title            String
@@ -141,12 +202,16 @@ model AuditLog {
   id           String   @id @default(cuid())
   actorUserId  String?
   targetUserId String?
+  dismissedById String?
   action       String
   metadata     String?
   createdAt    DateTime @default(now())
+  dismissedAt  DateTime?
   actorUser    User?    @relation("AuditActor", fields: [actorUserId], references: [id], onDelete: SetNull)
   targetUser   User?    @relation("AuditTarget", fields: [targetUserId], references: [id], onDelete: SetNull)
+  dismissedBy  User?    @relation("AuditDismissedBy", fields: [dismissedById], references: [id], onDelete: SetNull)
 
   @@index([action])
   @@index([createdAt])
+  @@index([dismissedAt])
 }

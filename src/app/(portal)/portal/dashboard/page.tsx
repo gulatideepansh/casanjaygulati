@@ -1,22 +1,28 @@
 import Image from "next/image";
 import Link from "next/link";
-import { TaskPriority, TaskStatus, UserRole } from "@prisma/client";
+import { AccountStatus, TaskPriority, TaskStatus, UserRole } from "@prisma/client";
 
 import { SectionHeading } from "@/components/ui/section-heading";
 import { requireUser } from "@/lib/auth/session";
 import { getDb } from "@/lib/db";
 import {
+  EXPECTED_CLOCK_IN_HOUR,
+  EXPECTED_CLOCK_IN_MINUTE,
   EXPECTED_CLOCK_IN_LABEL,
   EXPECTED_CLOCK_OUT_LABEL
 } from "@/lib/portal/config";
 import {
   formatPortalDate,
   formatPortalDateTime,
-  getPortalDateKey
+  getPortalDateKey,
+  getPortalDueState,
+  getPortalMinutes
 } from "@/lib/portal/time";
+import { formatWorkWeekLabel, formatWorkedMinutesLabel } from "@/lib/portal/timesheets";
 import {
   clockInAction,
   clockOutAction,
+  deleteTaskAction,
   updateTaskStatusAction
 } from "@/modules/portal/actions";
 
@@ -27,11 +33,11 @@ export const metadata = {
 function getTaskPriorityClass(priority: TaskPriority) {
   switch (priority) {
     case "URGENT":
-      return "text-rose-200";
+      return "text-rose-300";
     case "HIGH":
-      return "text-amber-200";
+      return "text-rose-200";
     case "MEDIUM":
-      return "text-sky-200";
+      return "text-amber-200";
     default:
       return "text-emerald-200";
   }
@@ -51,6 +57,45 @@ function getWorkedDurationLabel(clockInAt: Date, clockOutAt: Date | null) {
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
   return `${hours}h ${minutes}m`;
+}
+
+function getAttendanceIndicator(attendanceRecord: { clockInAt: Date } | null) {
+  const expectedClockInMinutes = EXPECTED_CLOCK_IN_HOUR * 60 + EXPECTED_CLOCK_IN_MINUTE;
+
+  if (!attendanceRecord) {
+    if (getPortalMinutes() >= expectedClockInMinutes) {
+      return {
+        label: "Due",
+        dotClass: "bg-amber-300"
+      };
+    }
+
+    return {
+      label: "Pending",
+      dotClass: "bg-slate-500"
+    };
+  }
+
+  return getPortalMinutes(attendanceRecord.clockInAt) > expectedClockInMinutes
+    ? {
+        label: "Late",
+        dotClass: "bg-rose-400"
+      }
+    : {
+        label: "On time",
+        dotClass: "bg-emerald-400"
+      };
+}
+
+function getTaskDueTone(dueDate: Date) {
+  switch (getPortalDueState(dueDate)) {
+    case "OVERDUE":
+      return "text-rose-300";
+    case "TODAY":
+      return "text-amber-200";
+    default:
+      return "text-emerald-300";
+  }
 }
 
 function UserAvatar({
@@ -93,11 +138,12 @@ export default async function DashboardPage() {
   const isAdmin = currentUser.role === UserRole.ADMIN;
   const todayKey = getPortalDateKey();
 
-  const [staffMembers, recentActivity, allTasks, todayAttendance, openTasks, completedTasks] = await Promise.all([
+  const [staffMembers, activityNotifications, activityNotificationCount, allTasks, todayAttendance, openTasks, completedTasks, latestWeeklyTimesheet] = await Promise.all([
     isAdmin
       ? getDb().user.findMany({
           where: {
-            role: UserRole.STAFF
+            role: UserRole.STAFF,
+            status: AccountStatus.APPROVED
           },
           orderBy: [{ firstName: "asc" }, { lastName: "asc" }],
           include: {
@@ -118,10 +164,13 @@ export default async function DashboardPage() {
       : Promise.resolve([]),
     isAdmin
       ? getDb().auditLog.findMany({
+          where: {
+            dismissedAt: null
+          },
           orderBy: {
             createdAt: "desc"
           },
-          take: 10,
+          take: 3,
           include: {
             actorUser: true,
             targetUser: true
@@ -129,8 +178,20 @@ export default async function DashboardPage() {
         })
       : Promise.resolve([]),
     isAdmin
+      ? getDb().auditLog.count({
+          where: {
+            dismissedAt: null
+          }
+        })
+      : Promise.resolve(0),
+    isAdmin
       ? getDb().task.findMany({
-          orderBy: [{ status: "asc" }, { dueDate: "asc" }, { createdAt: "desc" }],
+          where: {
+            assignedTo: {
+              status: AccountStatus.APPROVED
+            }
+          },
+          orderBy: [{ dueDate: "asc" }, { createdAt: "desc" }],
           include: {
             assignedTo: true,
             createdBy: true
@@ -169,7 +230,17 @@ export default async function DashboardPage() {
           },
           take: 6
         })
-      : Promise.resolve([])
+      : Promise.resolve([]),
+    !isAdmin
+      ? getDb().weeklyTimesheet.findFirst({
+          where: {
+            userId: currentUser.id
+          },
+          orderBy: {
+            weekStartDate: "desc"
+          }
+        })
+      : Promise.resolve(null)
   ]);
 
   if (isAdmin) {
@@ -181,7 +252,8 @@ export default async function DashboardPage() {
       lateToday: staffMembers.filter((staffUser) => staffUser.attendanceRecords[0]?.status === "LATE").length,
       tasksOpen: allTasks.filter((task) => task.status !== "COMPLETED").length,
       tasksInProgress: allTasks.filter((task) => task.status === "IN_PROGRESS").length,
-      tasksCompleted: allTasks.filter((task) => task.status === "COMPLETED").length
+      tasksCompleted: allTasks.filter((task) => task.status === "COMPLETED").length,
+      notificationsOpen: activityNotificationCount
     };
 
     return (
@@ -190,8 +262,8 @@ export default async function DashboardPage() {
           <div className="pt-10">
             <SectionHeading
               eyebrow="Admin Dashboard"
-              title="Staff operations in a clean running list."
-              description="The front page now stays focused on attendance and task progress. Staff creation and task assignment sit on dedicated pages so the dashboard reads like an operations register rather than a grid of widgets."
+              title="Staff operations"
+              description="Review attendance, monitor task progress, and manage daily staff activity."
             />
 
             <div className="mt-8 flex flex-wrap items-center gap-3 text-sm text-slate-300">
@@ -200,6 +272,12 @@ export default async function DashboardPage() {
               </Link>
               <Link href="/portal/tasks" className="button-secondary">
                 Assign Tasks
+              </Link>
+              <Link href="/portal/activity" className="button-secondary">
+                Activity
+              </Link>
+              <Link href="/portal/timesheets" className="button-secondary">
+                Timesheets
               </Link>
               <span className="border border-white/10 px-4 py-3">
                 Working hours: {EXPECTED_CLOCK_IN_LABEL} to {EXPECTED_CLOCK_OUT_LABEL}
@@ -225,113 +303,137 @@ export default async function DashboardPage() {
         </section>
 
         <section className="section-divider py-8">
-          <div className="grid gap-12 pt-10 xl:grid-cols-[1.08fr_0.92fr]">
-            <div>
-              <SectionHeading
-                eyebrow="Attendance"
-                title="Today’s staff attendance"
-                description="Every staff member appears as a row with start time, end time, and the current attendance state."
-              />
+          <div className="pt-10">
+            <SectionHeading
+              eyebrow="Attendance"
+              title="Staff attendance"
+              description="Today's attendance at a glance."
+            />
 
-              <div className="mt-8 border-y border-white/10">
-                <div className="hidden grid-cols-[1.1fr_0.9fr_0.9fr_0.8fr_0.6fr] gap-5 border-b border-white/10 px-4 py-4 text-xs uppercase tracking-[0.26em] text-brass lg:grid">
-                  <span>Staff member</span>
-                  <span>Contact</span>
-                  <span>Attendance</span>
-                  <span>Open work</span>
-                  <span>Actions</span>
+            <div className="mt-8 border-y border-white/10">
+              <div className="hidden grid-cols-[1.15fr_1fr_1.2fr_0.9fr_0.55fr] gap-6 border-b border-white/10 px-4 py-4 text-xs uppercase tracking-[0.26em] text-brass lg:grid">
+                <span>Staff member</span>
+                <span>Contact</span>
+                <span>Attendance</span>
+                <span>Work</span>
+                <span>Actions</span>
+              </div>
+
+              {staffMembers.length === 0 ? (
+                <div className="px-4 py-8 text-sm leading-8 text-slate-300">
+                  No staff members exist yet. Create the first profile from the staff page.
                 </div>
+              ) : (
+                staffMembers.map((staffUser) => {
+                  const todayRecord = staffUser.attendanceRecords[0] ?? null;
+                  const openTaskCount = staffUser.assignedTasks.filter((task) => task.status !== "COMPLETED").length;
+                  const activeTaskCount = staffUser.assignedTasks.filter((task) => task.status === "IN_PROGRESS").length;
+                  const completedTaskCount = staffUser.assignedTasks.filter((task) => task.status === "COMPLETED").length;
+                  const attendanceIndicator = getAttendanceIndicator(todayRecord);
 
-                {staffMembers.length === 0 ? (
-                  <div className="px-4 py-8 text-sm leading-8 text-slate-300">
-                    No staff members exist yet. Create the first profile from the staff page.
-                  </div>
-                ) : (
-                  staffMembers.map((staffUser) => {
-                    const todayRecord = staffUser.attendanceRecords[0] ?? null;
-                    const openTaskCount = staffUser.assignedTasks.filter((task) => task.status !== "COMPLETED").length;
-
-                    return (
-                      <div key={staffUser.id} className="border-b border-white/10 px-4 py-5 last:border-b-0">
-                        <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr_0.9fr_0.8fr_0.6fr] lg:items-start">
-                          <div className="flex items-start gap-4">
-                            <UserAvatar
-                              firstName={staffUser.firstName}
-                              lastName={staffUser.lastName}
-                              profileImageDataUrl={staffUser.profileImageDataUrl}
-                            />
-                            <div>
+                  return (
+                    <div key={staffUser.id} className="border-b border-white/10 px-4 py-5 last:border-b-0">
+                      <div className="grid gap-6 lg:grid-cols-[1.15fr_1fr_1.2fr_0.9fr_0.55fr] lg:items-center">
+                        <div className="flex items-center gap-4">
+                          <UserAvatar
+                            firstName={staffUser.firstName}
+                            lastName={staffUser.lastName}
+                            profileImageDataUrl={staffUser.profileImageDataUrl}
+                          />
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-3">
+                              <span className={`inline-flex h-2.5 w-2.5 rounded-full ${attendanceIndicator.dotClass}`} />
                               <p className="font-display text-2xl text-white">
                                 {staffUser.firstName} {staffUser.lastName}
                               </p>
-                              <p className="mt-1 text-sm text-slate-400">
-                                @{staffUser.username}
-                                {staffUser.staffId ? ` | ${staffUser.staffId}` : ""}
-                              </p>
                             </div>
-                          </div>
-
-                          <div className="text-sm leading-7 text-slate-300">
-                            <p>{staffUser.email || "No email supplied"}</p>
-                          </div>
-
-                          <div className="text-sm leading-7 text-slate-300">
-                            <p>In: {formatPortalDateTime(todayRecord?.clockInAt ?? null)}</p>
-                            <p>Out: {formatPortalDateTime(todayRecord?.clockOutAt ?? null)}</p>
-                            <p className="text-white">{todayRecord?.status ? formatStatusLabel(todayRecord.status) : "Not started"}</p>
-                          </div>
-
-                          <div className="text-sm leading-7 text-slate-300">
-                            <p className="text-white">{openTaskCount} open</p>
-                            <p>{staffUser.assignedTasks.filter((task) => task.status === "IN_PROGRESS").length} in progress</p>
-                            <p>{staffUser.assignedTasks.filter((task) => task.status === "COMPLETED").length} completed</p>
-                          </div>
-
-                          <div className="flex gap-3 lg:justify-end">
-                            <Link href={`/portal/tasks?staff=${staffUser.id}`} className="text-sm font-semibold text-brass transition hover:text-white">
-                              Assign
-                            </Link>
-                            <Link href="/portal/staff" className="text-sm font-semibold text-slate-300 transition hover:text-white">
-                              Manage
-                            </Link>
+                            <p className="mt-1 text-sm text-slate-400">
+                              @{staffUser.username}
+                              {staffUser.staffId ? ` | ${staffUser.staffId}` : ""}
+                            </p>
+                            <p className="mt-1 text-xs uppercase tracking-[0.2em] text-slate-500">
+                              {attendanceIndicator.label}
+                            </p>
                           </div>
                         </div>
+
+                        <div className="min-w-0 text-sm text-slate-300">
+                          <p className="truncate">{staffUser.email || "No email supplied"}</p>
+                        </div>
+
+                        <div className="text-sm text-slate-300">
+                          <p>
+                            In {formatPortalDateTime(todayRecord?.clockInAt ?? null)} | Out{" "}
+                            {formatPortalDateTime(todayRecord?.clockOutAt ?? null)}
+                          </p>
+                          <p className="mt-1 text-white">
+                            {todayRecord?.status ? formatStatusLabel(todayRecord.status) : "Not started"}
+                          </p>
+                        </div>
+
+                        <div className="text-sm text-slate-300">
+                          <p>
+                            <span className="text-white">{openTaskCount} open</span> | {activeTaskCount} active | {completedTaskCount} done
+                          </p>
+                        </div>
+
+                        <div className="flex gap-4 lg:justify-end">
+                          <Link href={`/portal/tasks?staff=${staffUser.id}`} className="whitespace-nowrap text-sm font-semibold text-brass transition hover:text-white">
+                            Assign
+                          </Link>
+                          <Link href="/portal/staff" className="whitespace-nowrap text-sm font-semibold text-slate-300 transition hover:text-white">
+                            Manage
+                          </Link>
+                        </div>
                       </div>
-                    );
-                  })
-                )}
-              </div>
-            </div>
-
-            <div>
-              <SectionHeading
-                eyebrow="Activity"
-                title="Recent internal movement"
-                description="A direct running log of staff creation, attendance updates, and task actions."
-              />
-
-              <div className="mt-8 border-y border-white/10">
-                {recentActivity.length === 0 ? (
-                  <div className="px-4 py-8 text-sm leading-8 text-slate-300">
-                    Activity will appear here as the team uses the portal.
-                  </div>
-                ) : (
-                  recentActivity.map((activity) => (
-                    <div key={activity.id} className="border-b border-white/10 px-4 py-5 last:border-b-0">
-                      <p className="text-xs uppercase tracking-[0.28em] text-brass">
-                        {formatPortalDateTime(activity.createdAt)}
-                      </p>
-                      <p className="mt-2 font-semibold text-white">{activity.action.replaceAll(".", " ")}</p>
-                      <p className="mt-2 text-sm leading-7 text-slate-300">
-                        {activity.actorUser
-                          ? `${activity.actorUser.firstName} ${activity.actorUser.lastName}`
-                          : "System"}
-                        {activity.targetUser ? ` -> ${activity.targetUser.firstName} ${activity.targetUser.lastName}` : ""}
-                      </p>
                     </div>
-                  ))
-                )}
+                  );
+                })
+              )}
+            </div>
+          </div>
+        </section>
+
+        <section className="section-divider py-8">
+          <div className="pt-10">
+            <SectionHeading
+              eyebrow="Notifications"
+              title="Notifications"
+              description="Unread administrative updates."
+            />
+
+            <div className="mt-8 border-y border-white/10">
+              <div className="grid gap-6 border-b border-white/10 px-4 py-5 md:grid-cols-[0.5fr_1fr] md:items-center">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.26em] text-brass">Open notifications</p>
+                  <p className="mt-2 font-display text-4xl text-white">{summary.notificationsOpen}</p>
+                </div>
+                <div className="text-sm text-slate-300 md:text-right">
+                  <Link href="/portal/activity" className="inline-flex font-semibold text-brass transition hover:text-white">
+                    View all activity
+                  </Link>
+                </div>
               </div>
+              {activityNotifications.length === 0 ? (
+                <div className="px-4 py-8 text-sm leading-8 text-slate-300">
+                  No open notifications.
+                </div>
+              ) : (
+                activityNotifications.map((activity) => (
+                  <div key={activity.id} className="border-b border-white/10 px-4 py-5 last:border-b-0">
+                    <p className="text-xs uppercase tracking-[0.28em] text-brass">
+                      {formatPortalDateTime(activity.createdAt)}
+                    </p>
+                    <p className="mt-2 font-semibold text-white">{activity.action.replaceAll(".", " ")}</p>
+                    <p className="mt-2 text-sm text-slate-300">
+                      {activity.actorUser
+                        ? `${activity.actorUser.firstName} ${activity.actorUser.lastName}`
+                        : "System"}
+                      {activity.targetUser ? ` -> ${activity.targetUser.firstName} ${activity.targetUser.lastName}` : ""}
+                    </p>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </section>
@@ -340,18 +442,19 @@ export default async function DashboardPage() {
           <div className="pt-10">
             <SectionHeading
               eyebrow="Task Progress"
-              title="Every assigned task in one list"
-              description="This front page now shows task progress directly so the admin can see pending, in-progress, blocked, and completed work without jumping into staff rows."
+              title="Task progress"
+              description="Current task status across the team."
             />
 
             <div className="mt-8 border-y border-white/10">
-              <div className="hidden grid-cols-[1.1fr_0.9fr_0.6fr_0.7fr_0.7fr_0.8fr] gap-5 border-b border-white/10 px-4 py-4 text-xs uppercase tracking-[0.26em] text-brass lg:grid">
+              <div className="hidden grid-cols-[1.1fr_0.9fr_0.6fr_0.7fr_0.7fr_0.8fr_0.55fr] gap-5 border-b border-white/10 px-4 py-4 text-xs uppercase tracking-[0.26em] text-brass lg:grid">
                 <span>Task</span>
                 <span>Assigned to</span>
                 <span>Priority</span>
                 <span>Status</span>
                 <span>Due date</span>
                 <span>Assigned by</span>
+                <span>Actions</span>
               </div>
 
               {allTasks.length === 0 ? (
@@ -361,9 +464,9 @@ export default async function DashboardPage() {
               ) : (
                 allTasks.map((task) => (
                   <div key={task.id} className="border-b border-white/10 px-4 py-5 last:border-b-0">
-                    <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr_0.6fr_0.7fr_0.7fr_0.8fr]">
+                    <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr_0.6fr_0.7fr_0.7fr_0.8fr_0.55fr] lg:items-start">
                       <div>
-                        <p className="font-semibold text-white">{task.title}</p>
+                        <p className={`font-semibold ${getTaskDueTone(task.dueDate)}`}>{task.title}</p>
                         <p className="mt-1 text-sm leading-7 text-slate-300">{task.description}</p>
                       </div>
                       <div className="text-sm leading-7 text-slate-300">
@@ -373,10 +476,19 @@ export default async function DashboardPage() {
                         {task.priority}
                       </div>
                       <div className="text-sm leading-7 text-white">{getTaskStatusLabel(task.status)}</div>
-                      <div className="text-sm leading-7 text-slate-300">{formatPortalDate(task.dueDate)}</div>
+                      <div className={`text-sm leading-7 ${getTaskDueTone(task.dueDate)}`}>{formatPortalDate(task.dueDate)}</div>
                       <div className="text-sm leading-7 text-slate-300">
                         {task.createdBy.firstName} {task.createdBy.lastName}
                       </div>
+                      <form action={deleteTaskAction} className="lg:text-right">
+                        <input type="hidden" name="taskId" value={task.id} />
+                        <button
+                          type="submit"
+                          className="text-sm font-semibold text-rose-200 transition hover:text-white"
+                        >
+                          Delete
+                        </button>
+                      </form>
                     </div>
                   </div>
                 ))
@@ -480,14 +592,14 @@ export default async function DashboardPage() {
                   <div key={task.id} className="border-b border-white/10 px-4 py-5 last:border-b-0">
                     <div className="grid gap-5 lg:grid-cols-[1.2fr_0.5fr_0.6fr_0.7fr_auto] lg:items-start">
                       <div>
-                        <p className="font-semibold text-white">{task.title}</p>
+                        <p className={`font-semibold ${getTaskDueTone(task.dueDate)}`}>{task.title}</p>
                         <p className="mt-2 text-sm leading-7 text-slate-300">{task.description}</p>
                       </div>
                       <div className={`text-sm font-semibold uppercase tracking-[0.22em] ${getTaskPriorityClass(task.priority)}`}>
                         {task.priority}
                       </div>
                       <div className="text-sm leading-7 text-white">{getTaskStatusLabel(task.status)}</div>
-                      <div className="text-sm leading-7 text-slate-300">{formatPortalDate(task.dueDate)}</div>
+                      <div className={`text-sm leading-7 ${getTaskDueTone(task.dueDate)}`}>{formatPortalDate(task.dueDate)}</div>
                       <form action={updateTaskStatusAction} className="flex gap-3 lg:justify-end">
                         <input type="hidden" name="taskId" value={task.id} />
                         <select name="status" defaultValue={task.status} className="auth-input min-w-44">
@@ -530,6 +642,61 @@ export default async function DashboardPage() {
                 ))
               )}
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-divider py-8">
+        <div className="pt-10">
+          <SectionHeading
+            eyebrow="Latest Timesheet"
+            title="Latest generated week"
+            description="The newest saved weekly roll-up stays visible here, with the full archive available on the timesheets page."
+          />
+
+          <div className="mt-8 border-y border-white/10">
+            {!latestWeeklyTimesheet ? (
+              <div className="flex flex-wrap items-center justify-between gap-4 px-4 py-8 text-sm leading-8 text-slate-300">
+                <p>Your first weekly timesheet will appear here after the Sunday generation run.</p>
+                <Link href="/portal/timesheets" className="text-sm font-semibold text-brass transition hover:text-white">
+                  Open timesheets
+                </Link>
+              </div>
+            ) : (
+              <div className="grid gap-0 md:grid-cols-[1.2fr_0.7fr_0.7fr_1fr_auto] md:items-center">
+                <div className="border-b border-white/10 px-5 py-5 md:border-b-0 md:border-r">
+                  <p className="text-xs uppercase tracking-[0.26em] text-brass">Week</p>
+                  <p className="mt-2 text-lg font-semibold text-white">
+                    {formatWorkWeekLabel({
+                      weekStartDate: latestWeeklyTimesheet.weekStartDate,
+                      weekEndDate: latestWeeklyTimesheet.weekEndDate
+                    })}
+                  </p>
+                </div>
+                <div className="border-b border-white/10 px-5 py-5 md:border-b-0 md:border-r">
+                  <p className="text-xs uppercase tracking-[0.26em] text-brass">Days worked</p>
+                  <p className="mt-2 font-display text-3xl text-white">{latestWeeklyTimesheet.totalDaysWorked}</p>
+                </div>
+                <div className="border-b border-white/10 px-5 py-5 md:border-b-0 md:border-r">
+                  <p className="text-xs uppercase tracking-[0.26em] text-brass">Total time</p>
+                  <p className="mt-2 font-display text-3xl text-white">
+                    {formatWorkedMinutesLabel(latestWeeklyTimesheet.totalMinutesWorked)}
+                  </p>
+                </div>
+                <div className="border-b border-white/10 px-5 py-5 md:border-b-0 md:border-r">
+                  <p className="text-xs uppercase tracking-[0.26em] text-brass">Summary</p>
+                  <p className="mt-2 text-sm leading-7 text-slate-300">{latestWeeklyTimesheet.statusSummary}</p>
+                </div>
+                <div className="px-5 py-5 md:text-right">
+                  <Link
+                    href={`/portal/timesheets?timesheet=${latestWeeklyTimesheet.id}`}
+                    className="text-sm font-semibold text-brass transition hover:text-white"
+                  >
+                    Open detail
+                  </Link>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
