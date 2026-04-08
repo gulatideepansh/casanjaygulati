@@ -16,11 +16,6 @@ import {
   formatWorkWeekLabel,
   formatWorkedMinutesLabel
 } from "@/lib/portal/timesheets";
-import {
-  generateLatestTimesheetsAction,
-  refreshWeeklyTimesheetAction,
-  updateWeeklyTimesheetAction
-} from "@/modules/portal/timesheet-actions";
 
 export const metadata = {
   title: "Timesheets | Casanjaygulati"
@@ -58,6 +53,27 @@ function buildTimesheetHref({
   return `/portal/timesheets?${params.toString()}`;
 }
 
+function buildTimesheetsCollectionHref({
+  week,
+  staff
+}: {
+  week?: string;
+  staff?: string;
+}) {
+  const params = new URLSearchParams();
+
+  if (week) {
+    params.set("week", week);
+  }
+
+  if (staff) {
+    params.set("staff", staff);
+  }
+
+  const queryString = params.toString();
+  return queryString.length > 0 ? `/portal/timesheets?${queryString}` : "/portal/timesheets";
+}
+
 export default async function TimesheetsPage({
   searchParams
 }: {
@@ -72,6 +88,10 @@ export default async function TimesheetsPage({
       : null;
   const hasValidWeekFilter = weekFilterDate && !Number.isNaN(weekFilterDate.getTime());
   const staffSearchValue = resolvedSearchParams.staff?.trim() ?? "";
+  const collectionHref = buildTimesheetsCollectionHref({
+    week: resolvedSearchParams.week,
+    staff: resolvedSearchParams.staff
+  });
 
   const [staffMembers, timesheets, selectedTimesheet, livePreview] = await Promise.all([
     isAdmin
@@ -220,7 +240,8 @@ export default async function TimesheetsPage({
               Back to Dashboard
             </Link>
             {isAdmin ? (
-              <form action={generateLatestTimesheetsAction}>
+              <form action="/portal/timesheets/generate" method="post">
+                <input type="hidden" name="redirectTo" value={collectionHref} />
                 <button type="submit" className="button-primary">
                   Generate Latest Closed Week
                 </button>
@@ -410,8 +431,17 @@ export default async function TimesheetsPage({
                 Export PDF
               </Link>
               {isAdmin ? (
-                <form action={refreshWeeklyTimesheetAction}>
+                <form action={`/portal/timesheets/${activeTimesheet.id}/refresh`} method="post">
                   <input type="hidden" name="timesheetId" value={activeTimesheet.id} />
+                  <input
+                    type="hidden"
+                    name="redirectTo"
+                    value={buildTimesheetHref({
+                      timesheetId: activeTimesheet.id,
+                      week: resolvedSearchParams.week,
+                      staff: resolvedSearchParams.staff
+                    })}
+                  />
                   <button type="submit" className="button-secondary">
                     Refresh From Attendance
                   </button>
@@ -448,8 +478,17 @@ export default async function TimesheetsPage({
             </div>
 
             {isAdmin ? (
-              <form action={updateWeeklyTimesheetAction} className="mt-8">
+              <form action={`/portal/timesheets/${activeTimesheet.id}/update`} method="post" className="mt-8">
                 <input type="hidden" name="timesheetId" value={activeTimesheet.id} />
+                <input
+                  type="hidden"
+                  name="redirectTo"
+                  value={buildTimesheetHref({
+                    timesheetId: activeTimesheet.id,
+                    week: resolvedSearchParams.week,
+                    staff: resolvedSearchParams.staff
+                  })}
+                />
 
                 <div className="grid gap-4 border-y border-white/10 py-6">
                   <label>
