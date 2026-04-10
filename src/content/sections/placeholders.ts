@@ -5,23 +5,31 @@ function createGoogleMapsLink(query: string) {
 }
 
 function createGoogleMapsEmbedLink(query: string) {
-  return `https://www.google.com/maps?output=embed&q=${encodeURIComponent(query)}`;
+  return `https://maps.google.com/maps?output=embed&iwloc=B&z=17&q=${encodeURIComponent(query)}`;
 }
 
 export const branches: BranchItem[] = [
   {
     name: "Lajpat Nagar Office",
-    address: "A-44, Basement, Amar Colony, Lajpat Nagar 4, New Delhi 110024",
+    address: "A-44, Basement, Amar Colony, Lajpat Nagar IV, New Delhi, Delhi 110024,\nIndia",
     note: "Primary office for client meetings, tax matters, audit discussions, and ongoing professional coordination.",
-    mapLink: createGoogleMapsLink("A-44, Basement, Amar Colony, Lajpat Nagar 4, New Delhi 110024"),
-    mapEmbedLink: createGoogleMapsEmbedLink("A-44, Basement, Amar Colony, Lajpat Nagar 4, New Delhi 110024")
+    mapLink: createGoogleMapsLink(
+      "Nayyar & Nayyar, A-44, Basement, Amar Colony, Lajpat Nagar IV, New Delhi, Delhi 110024, India"
+    ),
+    mapEmbedLink: createGoogleMapsEmbedLink(
+      "Nayyar & Nayyar, A-44, Basement, Amar Colony, Lajpat Nagar IV, New Delhi, Delhi 110024, India"
+    )
   },
   {
     name: "Karol Bagh Office",
-    address: "102, 82 Abhinash Mansion, Joshi Road, Karol Bagh, New Delhi 110005",
+    address: "Efforts Polymers Private Limited, 82/3 Joshi Rd, Block 63, Karol Bagh, New Delhi, Delhi 110005, India",
     note: "Additional office presence supporting accessibility and professional coordination across Delhi.",
-    mapLink: createGoogleMapsLink("Abhinash Mansion, 82/3 Joshi Road, Karol Bagh, New Delhi 110005"),
-    mapEmbedLink: createGoogleMapsEmbedLink("Abhinash Mansion, 82/3 Joshi Road, Karol Bagh, New Delhi 110005")
+    mapLink: createGoogleMapsLink(
+      "Efforts Polymers Private Limited, 82/3 Joshi Rd, Block 63, Karol Bagh, New Delhi, Delhi 110005, India"
+    ),
+    mapEmbedLink: createGoogleMapsEmbedLink(
+      "Efforts Polymers Private Limited, 82/3 Joshi Rd, Block 63, Karol Bagh, New Delhi, Delhi 110005, India"
+    )
   }
 ];
 

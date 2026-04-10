@@ -14,7 +14,7 @@ export function Branches() {
           <article key={branch.name} className="border-l border-white/10 pl-6">
             <p className="text-xs uppercase tracking-[0.35em] text-brass">Office {index + 1}</p>
             <h3 className="mt-4 font-display text-[2rem] text-white">{branch.name}</h3>
-            <p className="mt-4 max-w-xl text-base leading-7 text-slate-300">{branch.address}</p>
+            <p className="mt-4 max-w-xl whitespace-pre-line text-base leading-7 text-slate-300">{branch.address}</p>
             {branch.mapEmbedLink ? (
               <div className="mt-8">
                 <div className="mb-4 flex items-center justify-between gap-4">

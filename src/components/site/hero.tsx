@@ -14,13 +14,7 @@ export function Hero() {
 
       <div className="section-shell relative py-20 lg:py-28">
         <div className="mx-auto max-w-5xl animate-fade-up text-center">
-          <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.28em] text-slate-200">
-            Established Chartered Accountants in New Delhi
-          </div>
-          <p className="mt-8 text-sm font-semibold uppercase tracking-[0.34em] text-brass sm:text-base">
-            {siteContent.firm.name}
-          </p>
-          <h1 className="mt-6 font-display text-5xl leading-[0.98] text-white sm:text-6xl lg:text-[4.75rem]">
+          <h1 className="font-display text-5xl leading-[0.98] text-white sm:text-6xl lg:text-[4.75rem]">
             Welcome to Nayyar & Nayyar
           </h1>
           <p className="mx-auto mt-7 max-w-3xl text-[17px] leading-8 text-slate-300 sm:text-lg">

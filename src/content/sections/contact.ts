@@ -15,7 +15,7 @@ export const contactCards: ContactCardItem[] = [
   },
   {
     title: "Office Address",
-    detail: "A-44 Basement, Amar Colony, Lajpat Nagar IV, New Delhi, Delhi 110024",
+    detail: "A-44, Basement, Amar Colony, Lajpat Nagar IV, New Delhi, Delhi 110024, India",
     icon: MapPinned
   }
 ];
