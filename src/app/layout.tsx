@@ -82,7 +82,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
-        <div className="min-h-screen bg-ink text-white">{children}</div>
+        <div className="min-h-screen bg-[#f7f5ef] text-ink">{children}</div>
       </body>
     </html>
   );

@@ -5,16 +5,17 @@ import { SectionHeading } from "@/components/ui/section-heading";
 
 export function Partners() {
   return (
-    <section id="partners" className="section-divider border-y border-white/10 bg-[#091321]">
-      <div className="section-shell py-24">
+    <section id="partners" className="bg-white py-16 lg:py-20">
+      <div className="section-shell">
         <SectionHeading
           eyebrow="Partners"
-          title="Leadership with hands-on professional involvement"
+          title="Our Partners"
           description="The firm is led by experienced chartered accountants who remain closely involved in client matters and long-term advisory relationships."
+          align="center"
         />
-        <div className="mt-12 divide-y divide-white/10 border-t border-white/10">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2">
           {siteContent.partners.map((partner) => (
-            <article key={partner.name} className="grid gap-8 py-8 lg:grid-cols-[280px_1fr] lg:items-start">
+            <article key={partner.name} className="border border-[#d8d2c4] bg-white text-center shadow-[0_12px_28px_rgba(8,36,61,0.06)]">
               <div>
                 {partner.image ? (
                   <Image
@@ -22,25 +23,25 @@ export function Partners() {
                     alt={partner.name}
                     width={1200}
                     height={1200}
-                    className="h-[20rem] w-full rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-4 object-contain object-top"
+                    className="h-[22rem] w-full bg-[#f2efe8] object-contain object-top"
                   />
                 ) : (
-                  <div className="flex h-[20rem] items-center justify-center rounded-[1.5rem] border border-white/10 bg-white/[0.03] font-display text-3xl text-brass">
+                  <div className="flex h-[22rem] items-center justify-center bg-[#f2efe8] font-display text-3xl text-brass">
                     Partner Photograph
                   </div>
                 )}
               </div>
-              <div className="max-w-3xl">
-                <h3 className="font-display text-[2.2rem] text-white">{partner.name}</h3>
-                <p className="mt-2 text-xs uppercase tracking-[0.35em] text-brass">
+              <div className="p-5">
+                <h3 className="font-display text-2xl leading-tight text-ink">{partner.name}</h3>
+                <p className="mt-2 text-sm text-slate-600">
                   {partner.designation ?? partner.role}
                 </p>
                 {partner.qualifications ? (
-                  <p className="mt-3 text-sm font-medium text-slate-300">
+                  <p className="mt-3 text-sm font-medium text-slate-500">
                     Qualifications: {partner.qualifications}
                   </p>
                 ) : null}
-                <p className="mt-6 text-base leading-8 text-slate-300">{partner.description}</p>
+                <p className="mt-5 text-sm leading-7 text-slate-600">{partner.description}</p>
               </div>
             </article>
           ))}

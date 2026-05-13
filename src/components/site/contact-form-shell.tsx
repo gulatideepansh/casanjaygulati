@@ -65,43 +65,43 @@ export function ContactFormShell() {
     <form className="border-t border-white/10 pt-6" onSubmit={handleSubmit}>
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
-          <span className="text-sm uppercase tracking-[0.24em] text-slate-500">Name</span>
+          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Name</span>
           <input
             type="text"
             name="name"
             required
             placeholder="Your name"
-            className="mt-2 w-full border border-white/10 bg-[#091321] px-4 py-3 text-sm text-white outline-none transition duration-300 placeholder:text-slate-500 focus:border-brass/50 focus:bg-[#0c1930]"
+            className="field-input"
           />
         </label>
         <label className="block">
-          <span className="text-sm uppercase tracking-[0.24em] text-slate-500">Email</span>
+          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Email</span>
           <input
             type="email"
             name="email"
             required
             placeholder="name@example.com"
-            className="mt-2 w-full border border-white/10 bg-[#091321] px-4 py-3 text-sm text-white outline-none transition duration-300 placeholder:text-slate-500 focus:border-brass/50 focus:bg-[#0c1930]"
+            className="field-input"
           />
         </label>
         <label className="block sm:col-span-2">
-          <span className="text-sm uppercase tracking-[0.24em] text-slate-500">Subject</span>
+          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Subject</span>
           <input
             type="text"
             name="subject_line"
             required
             placeholder="How can we help?"
-            className="mt-2 w-full border border-white/10 bg-[#091321] px-4 py-3 text-sm text-white outline-none transition duration-300 placeholder:text-slate-500 focus:border-brass/50 focus:bg-[#0c1930]"
+            className="field-input"
           />
         </label>
         <label className="block sm:col-span-2">
-          <span className="text-sm uppercase tracking-[0.24em] text-slate-500">Message</span>
+          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Message</span>
           <textarea
             rows={5}
             name="message"
             required
             placeholder="Share a brief outline of your requirement."
-            className="mt-2 w-full border border-white/10 bg-[#091321] px-4 py-3 text-sm text-white outline-none transition duration-300 placeholder:text-slate-500 focus:border-brass/50 focus:bg-[#0c1930]"
+            className="field-input"
           />
         </label>
       </div>
@@ -118,13 +118,13 @@ export function ContactFormShell() {
       {submissionState.type !== "idle" ? (
         <p
           className={`mt-4 text-sm leading-7 ${
-            submissionState.type === "success" ? "text-emerald-300" : "text-rose-300"
+            submissionState.type === "success" ? "text-emerald-700" : "text-rose-700"
           }`}
         >
           {submissionState.message}
         </p>
       ) : (
-        <p className="mt-4 text-sm leading-7 text-slate-400">
+        <p className="mt-4 text-sm leading-7 text-slate-500">
           Please share a brief outline of your requirement. Form enquiries are submitted directly from
           this page.
         </p>

@@ -9,11 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#07131c",
+        ink: "#08243d",
         mist: "#f4f1ea",
-        brass: "#6aa7ac",
+        brass: "#bf9a55",
         stone: "#9ca3af",
-        line: "rgba(255, 255, 255, 0.08)"
+        line: "rgba(8, 36, 61, 0.12)"
       },
       fontFamily: {
         display: ["var(--font-display)"],
@@ -24,7 +24,7 @@ const config: Config = {
       },
       backgroundImage: {
         "hero-radial":
-          "radial-gradient(circle at top left, rgba(106, 167, 172, 0.24), transparent 35%), radial-gradient(circle at 80% 20%, rgba(188, 206, 220, 0.12), transparent 24%), linear-gradient(135deg, #08111b 0%, #112338 52%, #07111b 100%)"
+          "linear-gradient(135deg, #f7f5ef 0%, #ffffff 55%, #efe9dc 100%)"
       }
     }
   },

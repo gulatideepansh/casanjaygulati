@@ -1,36 +1,36 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 import { siteContent } from "@/content/site-content";
 import { SectionHeading } from "@/components/ui/section-heading";
 
 export function WhatWeDo() {
   return (
-    <section id="services" className="section-divider border-y border-white/10 bg-[rgba(255,255,255,0.02)]">
-      <div className="section-shell py-24">
+    <section id="services" className="bg-white py-16 lg:py-20">
+      <div className="section-shell">
         <SectionHeading
           eyebrow="Services"
-          title="Comprehensive professional services across audit, taxation, advisory, and regulatory support."
+          title="Our Services"
           description="Our services are designed to support clients through both recurring compliance needs and higher-value advisory matters, with clear scope and dependable execution."
+          align="center"
         />
-        <div className="mt-12 divide-y divide-white/10 border-y border-white/10">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {siteContent.servicesOverview.map((item) => {
             const Icon = item.icon;
 
             return (
               <article
                 key={item.slug}
-                className="grid gap-5 px-0 py-7 transition duration-300 hover:bg-white/[0.015] md:grid-cols-[64px_1fr_auto] md:items-start md:gap-8"
+                className="group flex min-h-[230px] flex-col items-center border border-[#d8d2c4] bg-white p-6 text-center shadow-[0_12px_28px_rgba(8,36,61,0.06)] transition hover:-translate-y-1 hover:border-brass"
               >
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brass/10 text-brass">
-                  <Icon size={22} />
+                <div className="flex h-16 w-16 items-center justify-center border border-ink/20 text-ink transition group-hover:border-brass group-hover:text-brass">
+                  <Icon size={30} />
                 </div>
-                <div>
-                  <h3 className="font-display text-[2rem] leading-tight text-white">{item.title}</h3>
-                  <p className="mt-3 max-w-3xl text-[15px] leading-7 text-slate-300">{item.description}</p>
-                </div>
+                <h3 className="mt-5 text-sm font-bold text-ink">{item.title}</h3>
+                <p className="mt-3 text-xs leading-6 text-slate-600">{item.description}</p>
                 <Link
                   href={`/services/${item.slug}`}
-                  className="inline-flex items-center text-sm font-semibold text-brass transition duration-300 hover:text-white md:mt-3"
+                  className="mt-auto pt-5 text-xs font-semibold text-brass opacity-0 transition group-hover:opacity-100"
                 >
                   Learn more
                 </Link>
@@ -38,9 +38,10 @@ export function WhatWeDo() {
             );
           })}
         </div>
-        <div className="mt-10">
-          <Link href="/services" className="button-secondary">
-            View All Service Pages
+        <div className="mt-10 text-center">
+          <Link href="/services" className="button-primary gap-3">
+            View All Services
+            <ArrowRight size={18} />
           </Link>
         </div>
       </div>
