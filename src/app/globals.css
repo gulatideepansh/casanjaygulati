@@ -74,11 +74,11 @@ a {
   }
 
   .auth-label {
-    @apply mb-2 block text-sm font-medium text-slate-200;
+    @apply mb-2 block text-sm font-semibold text-ink;
   }
 
   .auth-input {
-    @apply w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none transition duration-200 placeholder:text-slate-400 focus:border-brass/60 focus:bg-white/[0.075] focus:ring-2 focus:ring-brass/20;
+    @apply w-full rounded-none border border-[#d8d2c4] bg-white px-4 py-3 text-ink outline-none transition duration-200 placeholder:text-slate-400 focus:border-brass focus:ring-2 focus:ring-brass/20;
   }
 
   select.auth-input {
@@ -95,8 +95,8 @@ a {
   }
 
   select.auth-input option {
-    background: #0b1420;
-    color: #f8fafc;
+    background: #ffffff;
+    color: #08243d;
   }
 
   input[type="date"].auth-input::-webkit-calendar-picker-indicator {

@@ -20,8 +20,8 @@ export function LiveClock() {
 
   return (
     <div className="text-right">
-      <p className="font-display text-3xl leading-none tracking-[0.04em] text-white sm:text-4xl">{timeLabel}</p>
-      <p className="mt-2 text-sm text-slate-300 sm:text-base">{dateLabel}</p>
+      <p className="font-display text-2xl leading-none tracking-[0.04em] text-ink sm:text-3xl">{timeLabel}</p>
+      <p className="mt-1 text-sm text-slate-500">{dateLabel}</p>
     </div>
   );
 }

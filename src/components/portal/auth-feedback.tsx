@@ -11,8 +11,8 @@ export function AuthFeedback({ state }: AuthFeedbackProps) {
 
   const toneClasses =
     state.status === "success"
-      ? "border-emerald-400/25 bg-emerald-500/10 text-emerald-100"
-      : "border-rose-400/25 bg-rose-500/10 text-rose-100";
+      ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+      : "border-rose-200 bg-rose-50 text-rose-800";
 
-  return <div className={`rounded-2xl border px-4 py-3 text-sm ${toneClasses}`}>{state.message}</div>;
+  return <div className={`border px-4 py-3 text-sm ${toneClasses}`}>{state.message}</div>;
 }

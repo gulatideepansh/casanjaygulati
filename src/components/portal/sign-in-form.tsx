@@ -30,7 +30,7 @@ export function SignInForm() {
           placeholder="Enter your username or email"
         />
         {fieldError(state, "identifier") ? (
-          <p className="mt-2 text-sm text-rose-300">{fieldError(state, "identifier")}</p>
+          <p className="mt-2 text-sm text-rose-700">{fieldError(state, "identifier")}</p>
         ) : null}
       </div>
 
@@ -39,7 +39,7 @@ export function SignInForm() {
           <label htmlFor="password" className="auth-label mb-0">
             Password
           </label>
-          <Link href="/portal/forgot-password" className="text-sm text-brass transition hover:text-[#8bc6ca]">
+          <Link href="/portal/forgot-password" className="text-sm font-medium text-brass transition hover:text-ink">
             Forgot password?
           </Link>
         </div>
@@ -52,7 +52,7 @@ export function SignInForm() {
           placeholder="Enter your password"
         />
         {fieldError(state, "password") ? (
-          <p className="mt-2 text-sm text-rose-300">{fieldError(state, "password")}</p>
+          <p className="mt-2 text-sm text-rose-700">{fieldError(state, "password")}</p>
         ) : null}
       </div>
 

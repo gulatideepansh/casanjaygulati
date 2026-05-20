@@ -35,7 +35,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
           className="auth-input"
         />
         {fieldError(state, "password") ? (
-          <p className="mt-2 text-sm text-rose-300">{fieldError(state, "password")}</p>
+          <p className="mt-2 text-sm text-rose-700">{fieldError(state, "password")}</p>
         ) : null}
       </div>
 
@@ -51,7 +51,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
           className="auth-input"
         />
         {fieldError(state, "confirmPassword") ? (
-          <p className="mt-2 text-sm text-rose-300">{fieldError(state, "confirmPassword")}</p>
+          <p className="mt-2 text-sm text-rose-700">{fieldError(state, "confirmPassword")}</p>
         ) : null}
       </div>
 
@@ -59,7 +59,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
       <SubmitButton label="Update Password" pendingLabel="Updating Password..." />
 
       {state.status === "success" ? (
-        <Link href="/portal/sign-in" className="block text-center text-sm text-brass transition hover:text-[#8bc6ca]">
+        <Link href="/portal/sign-in" className="block text-center text-sm font-medium text-brass transition hover:text-ink">
           Return to sign in
         </Link>
       ) : null}

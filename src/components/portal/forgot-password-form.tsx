@@ -23,7 +23,7 @@ export function ForgotPasswordForm() {
         </label>
         <input id="email" name="email" type="email" autoComplete="email" className="auth-input" />
         {fieldError(state, "email") ? (
-          <p className="mt-2 text-sm text-rose-300">{fieldError(state, "email")}</p>
+          <p className="mt-2 text-sm text-rose-700">{fieldError(state, "email")}</p>
         ) : null}
       </div>
 
