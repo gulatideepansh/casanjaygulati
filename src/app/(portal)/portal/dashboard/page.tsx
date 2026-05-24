@@ -33,13 +33,13 @@ export const metadata = {
 function getTaskPriorityClass(priority: TaskPriority) {
   switch (priority) {
     case "URGENT":
-      return "text-rose-300";
+      return "text-rose-700";
     case "HIGH":
-      return "text-rose-200";
+      return "text-rose-700";
     case "MEDIUM":
-      return "text-amber-200";
+      return "text-amber-700";
     default:
-      return "text-emerald-200";
+      return "text-emerald-700";
   }
 }
 
@@ -90,11 +90,11 @@ function getAttendanceIndicator(attendanceRecord: { clockInAt: Date } | null) {
 function getTaskDueTone(dueDate: Date) {
   switch (getPortalDueState(dueDate)) {
     case "OVERDUE":
-      return "text-rose-300";
+      return "text-rose-700";
     case "TODAY":
-      return "text-amber-200";
+      return "text-amber-700";
     default:
-      return "text-emerald-300";
+      return "text-emerald-700";
   }
 }
 
@@ -111,7 +111,7 @@ function UserAvatar({
 }) {
   return (
     <div
-      className="flex items-center justify-center overflow-hidden rounded-full border border-white/10 bg-white/10 text-base font-semibold text-white"
+      className="flex items-center justify-center overflow-hidden rounded-full border border-[#e5dfd3] bg-[#f4f1ea] text-base font-semibold text-ink"
       style={{ width: size, height: size }}
     >
       {profileImageDataUrl ? (
@@ -257,16 +257,17 @@ export default async function DashboardPage() {
     };
 
     return (
-      <main className="section-shell py-10">
-        <section className="section-divider py-8">
-          <div className="pt-10">
+      <main className="section-shell py-6">
+        <section className="border-t border-[#e5dfd3] py-6 first:border-t-0">
+          <div>
             <SectionHeading
+              variant="portal"
               eyebrow="Admin Dashboard"
               title="Staff operations"
               description="Review attendance, monitor task progress, and manage daily staff activity."
             />
 
-            <div className="mt-8 flex flex-wrap items-center gap-3 text-sm text-slate-300">
+            <div className="mt-8 flex flex-wrap items-center gap-3 text-sm text-slate-700">
               <Link href="/portal/staff" className="button-secondary">
                 Manage Staff
               </Link>
@@ -279,12 +280,12 @@ export default async function DashboardPage() {
               <Link href="/portal/timesheets" className="button-secondary">
                 Timesheets
               </Link>
-              <span className="border border-white/10 px-4 py-3">
+              <span className="border border-[#e5dfd3] px-4 py-3">
                 Working hours: {EXPECTED_CLOCK_IN_LABEL} to {EXPECTED_CLOCK_OUT_LABEL}
               </span>
             </div>
 
-            <dl className="mt-8 grid gap-0 border-y border-white/10 md:grid-cols-3 xl:grid-cols-6">
+            <dl className="mt-8 grid gap-0 border-y border-[#e5dfd3] md:grid-cols-3 xl:grid-cols-6">
               {[
                 ["Total staff", summary.totalStaff],
                 ["Clocked in now", summary.clockedInNow],
@@ -293,25 +294,26 @@ export default async function DashboardPage() {
                 ["In progress", summary.tasksInProgress],
                 ["Completed", summary.tasksCompleted]
               ].map(([label, value]) => (
-                <div key={label} className="border-b border-white/10 px-5 py-5 md:border-r md:last:border-r-0 xl:border-b-0">
-                  <dt className="text-xs uppercase tracking-[0.28em] text-brass">{label}</dt>
-                  <dd className="mt-2 font-display text-3xl text-white">{value}</dd>
+                <div key={label} className="border-b border-[#e5dfd3] px-5 py-5 md:border-r md:last:border-r-0 xl:border-b-0">
+                  <dt className="text-sm font-semibold text-slate-600">{label}</dt>
+                  <dd className="mt-2 text-2xl font-semibold text-ink">{value}</dd>
                 </div>
               ))}
             </dl>
           </div>
         </section>
 
-        <section className="section-divider py-8">
-          <div className="pt-10">
+        <section className="border-t border-[#e5dfd3] py-6 first:border-t-0">
+          <div>
             <SectionHeading
+              variant="portal"
               eyebrow="Attendance"
               title="Staff attendance"
               description="Today's attendance at a glance."
             />
 
-            <div className="mt-8 border-y border-white/10">
-              <div className="hidden grid-cols-[1.15fr_1fr_1.2fr_0.9fr_0.55fr] gap-6 border-b border-white/10 px-4 py-4 text-xs uppercase tracking-[0.26em] text-brass lg:grid">
+            <div className="mt-8 border-y border-[#e5dfd3]">
+              <div className="hidden grid-cols-[1.15fr_1fr_1.2fr_0.9fr_0.55fr] gap-6 border-b border-[#e5dfd3] px-4 py-4 text-sm font-semibold text-slate-600 lg:grid">
                 <span>Staff member</span>
                 <span>Contact</span>
                 <span>Attendance</span>
@@ -320,7 +322,7 @@ export default async function DashboardPage() {
               </div>
 
               {staffMembers.length === 0 ? (
-                <div className="px-4 py-8 text-sm leading-8 text-slate-300">
+                <div className="px-4 py-8 text-sm leading-8 text-slate-700">
                   No staff members exist yet. Create the first profile from the staff page.
                 </div>
               ) : (
@@ -332,7 +334,7 @@ export default async function DashboardPage() {
                   const attendanceIndicator = getAttendanceIndicator(todayRecord);
 
                   return (
-                    <div key={staffUser.id} className="border-b border-white/10 px-4 py-5 last:border-b-0">
+                    <div key={staffUser.id} className="border-b border-[#e5dfd3] px-4 py-5 last:border-b-0">
                       <div className="grid gap-6 lg:grid-cols-[1.15fr_1fr_1.2fr_0.9fr_0.55fr] lg:items-center">
                         <div className="flex items-center gap-4">
                           <UserAvatar
@@ -343,45 +345,45 @@ export default async function DashboardPage() {
                           <div className="min-w-0">
                             <div className="flex items-center gap-3">
                               <span className={`inline-flex h-2.5 w-2.5 rounded-full ${attendanceIndicator.dotClass}`} />
-                              <p className="font-display text-2xl text-white">
+                              <p className="text-lg font-semibold text-ink">
                                 {staffUser.firstName} {staffUser.lastName}
                               </p>
                             </div>
-                            <p className="mt-1 text-sm text-slate-400">
+                            <p className="mt-1 text-sm text-slate-600">
                               @{staffUser.username}
                               {staffUser.staffId ? ` | ${staffUser.staffId}` : ""}
                             </p>
-                            <p className="mt-1 text-xs uppercase tracking-[0.2em] text-slate-500">
+                            <p className="mt-1 text-xs text-slate-600">
                               {attendanceIndicator.label}
                             </p>
                           </div>
                         </div>
 
-                        <div className="min-w-0 text-sm text-slate-300">
+                        <div className="min-w-0 text-sm text-slate-700">
                           <p className="truncate">{staffUser.email || "No email supplied"}</p>
                         </div>
 
-                        <div className="text-sm text-slate-300">
+                        <div className="text-sm text-slate-700">
                           <p>
                             In {formatPortalDateTime(todayRecord?.clockInAt ?? null)} | Out{" "}
                             {formatPortalDateTime(todayRecord?.clockOutAt ?? null)}
                           </p>
-                          <p className="mt-1 text-white">
+                          <p className="mt-1 text-ink">
                             {todayRecord?.status ? formatStatusLabel(todayRecord.status) : "Not started"}
                           </p>
                         </div>
 
-                        <div className="text-sm text-slate-300">
+                        <div className="text-sm text-slate-700">
                           <p>
-                            <span className="text-white">{openTaskCount} open</span> | {activeTaskCount} active | {completedTaskCount} done
+                            <span className="text-ink">{openTaskCount} open</span> | {activeTaskCount} active | {completedTaskCount} done
                           </p>
                         </div>
 
                         <div className="flex gap-4 lg:justify-end">
-                          <Link href={`/portal/tasks?staff=${staffUser.id}`} className="whitespace-nowrap text-sm font-semibold text-brass transition hover:text-white">
+                          <Link href={`/portal/tasks?staff=${staffUser.id}`} className="whitespace-nowrap text-sm font-semibold text-brass transition-colors hover:text-ink">
                             Assign
                           </Link>
-                          <Link href="/portal/staff" className="whitespace-nowrap text-sm font-semibold text-slate-300 transition hover:text-white">
+                          <Link href="/portal/staff" className="whitespace-nowrap text-sm font-semibold text-slate-700 transition-colors hover:text-ink">
                             Manage
                           </Link>
                         </div>
@@ -394,38 +396,39 @@ export default async function DashboardPage() {
           </div>
         </section>
 
-        <section className="section-divider py-8">
-          <div className="pt-10">
+        <section className="border-t border-[#e5dfd3] py-6 first:border-t-0">
+          <div>
             <SectionHeading
+              variant="portal"
               eyebrow="Notifications"
               title="Notifications"
               description="Unread administrative updates."
             />
 
-            <div className="mt-8 border-y border-white/10">
-              <div className="grid gap-6 border-b border-white/10 px-4 py-5 md:grid-cols-[0.5fr_1fr] md:items-center">
+            <div className="mt-8 border-y border-[#e5dfd3]">
+              <div className="grid gap-6 border-b border-[#e5dfd3] px-4 py-5 md:grid-cols-[0.5fr_1fr] md:items-center">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.26em] text-brass">Open notifications</p>
-                  <p className="mt-2 font-display text-4xl text-white">{summary.notificationsOpen}</p>
+                  <p className="text-sm font-semibold text-slate-600">Open notifications</p>
+                  <p className="mt-2 text-2xl font-semibold text-ink">{summary.notificationsOpen}</p>
                 </div>
-                <div className="text-sm text-slate-300 md:text-right">
-                  <Link href="/portal/activity" className="inline-flex font-semibold text-brass transition hover:text-white">
+                <div className="text-sm text-slate-700 md:text-right">
+                  <Link href="/portal/activity" className="inline-flex font-semibold text-brass transition-colors hover:text-ink">
                     View all activity
                   </Link>
                 </div>
               </div>
               {activityNotifications.length === 0 ? (
-                <div className="px-4 py-8 text-sm leading-8 text-slate-300">
+                <div className="px-4 py-8 text-sm leading-8 text-slate-700">
                   No open notifications.
                 </div>
               ) : (
                 activityNotifications.map((activity) => (
-                  <div key={activity.id} className="border-b border-white/10 px-4 py-5 last:border-b-0">
-                    <p className="text-xs uppercase tracking-[0.28em] text-brass">
+                  <div key={activity.id} className="border-b border-[#e5dfd3] px-4 py-5 last:border-b-0">
+                    <p className="text-sm font-semibold text-slate-600">
                       {formatPortalDateTime(activity.createdAt)}
                     </p>
-                    <p className="mt-2 font-semibold text-white">{activity.action.replaceAll(".", " ")}</p>
-                    <p className="mt-2 text-sm text-slate-300">
+                    <p className="mt-2 font-semibold text-ink">{activity.action.replaceAll(".", " ")}</p>
+                    <p className="mt-2 text-sm text-slate-700">
                       {activity.actorUser
                         ? `${activity.actorUser.firstName} ${activity.actorUser.lastName}`
                         : "System"}
@@ -438,16 +441,17 @@ export default async function DashboardPage() {
           </div>
         </section>
 
-        <section className="section-divider py-8">
-          <div className="pt-10">
+        <section className="border-t border-[#e5dfd3] py-6 first:border-t-0">
+          <div>
             <SectionHeading
+              variant="portal"
               eyebrow="Task Progress"
               title="Task progress"
               description="Current task status across the team."
             />
 
-            <div className="mt-8 border-y border-white/10">
-              <div className="hidden grid-cols-[1.1fr_0.9fr_0.6fr_0.7fr_0.7fr_0.8fr_0.55fr] gap-5 border-b border-white/10 px-4 py-4 text-xs uppercase tracking-[0.26em] text-brass lg:grid">
+            <div className="mt-8 border-y border-[#e5dfd3]">
+              <div className="hidden grid-cols-[1.1fr_0.9fr_0.6fr_0.7fr_0.7fr_0.8fr_0.55fr] gap-5 border-b border-[#e5dfd3] px-4 py-4 text-sm font-semibold text-slate-600 lg:grid">
                 <span>Task</span>
                 <span>Assigned to</span>
                 <span>Priority</span>
@@ -458,33 +462,33 @@ export default async function DashboardPage() {
               </div>
 
               {allTasks.length === 0 ? (
-                <div className="px-4 py-8 text-sm leading-8 text-slate-300">
+                <div className="px-4 py-8 text-sm leading-8 text-slate-700">
                   No tasks have been assigned yet. Use the task page to create the first assignment.
                 </div>
               ) : (
                 allTasks.map((task) => (
-                  <div key={task.id} className="border-b border-white/10 px-4 py-5 last:border-b-0">
+                  <div key={task.id} className="border-b border-[#e5dfd3] px-4 py-5 last:border-b-0">
                     <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr_0.6fr_0.7fr_0.7fr_0.8fr_0.55fr] lg:items-start">
                       <div>
                         <p className={`font-semibold ${getTaskDueTone(task.dueDate)}`}>{task.title}</p>
-                        <p className="mt-1 text-sm leading-7 text-slate-300">{task.description}</p>
+                        <p className="mt-1 text-sm leading-7 text-slate-700">{task.description}</p>
                       </div>
-                      <div className="text-sm leading-7 text-slate-300">
+                      <div className="text-sm leading-7 text-slate-700">
                         {task.assignedTo.firstName} {task.assignedTo.lastName}
                       </div>
-                      <div className={`text-sm font-semibold uppercase tracking-[0.22em] ${getTaskPriorityClass(task.priority)}`}>
+                      <div className={`text-sm font-semibold ${getTaskPriorityClass(task.priority)}`}>
                         {task.priority}
                       </div>
-                      <div className="text-sm leading-7 text-white">{getTaskStatusLabel(task.status)}</div>
+                      <div className="text-sm leading-7 text-ink">{getTaskStatusLabel(task.status)}</div>
                       <div className={`text-sm leading-7 ${getTaskDueTone(task.dueDate)}`}>{formatPortalDate(task.dueDate)}</div>
-                      <div className="text-sm leading-7 text-slate-300">
+                      <div className="text-sm leading-7 text-slate-700">
                         {task.createdBy.firstName} {task.createdBy.lastName}
                       </div>
                       <form action={deleteTaskAction} className="lg:text-right">
                         <input type="hidden" name="taskId" value={task.id} />
                         <button
                           type="submit"
-                          className="text-sm font-semibold text-rose-200 transition hover:text-white"
+                          className="text-sm font-semibold text-rose-700 transition-colors hover:text-ink"
                         >
                           Delete
                         </button>
@@ -501,19 +505,20 @@ export default async function DashboardPage() {
   }
 
   return (
-    <main className="section-shell py-10">
-      <section className="section-divider py-8">
-        <div className="pt-10">
+    <main className="section-shell py-6">
+      <section className="border-t border-[#e5dfd3] py-6 first:border-t-0">
+        <div>
           <SectionHeading
+              variant="portal"
             eyebrow="Staff Dashboard"
             title={`Welcome, ${currentUser.firstName}.`}
             description={`Your working window is ${EXPECTED_CLOCK_IN_LABEL} to ${EXPECTED_CLOCK_OUT_LABEL}. Attendance and task updates are kept in straightforward lists so the page stays practical and easy to scan.`}
           />
 
-          <div className="mt-8 border-y border-white/10">
+          <div className="mt-8 border-y border-[#e5dfd3]">
             <div className="grid gap-0 md:grid-cols-[1.1fr_1fr_1fr]">
-              <div className="border-b border-white/10 px-5 py-5 md:border-b-0 md:border-r">
-                <p className="text-xs uppercase tracking-[0.28em] text-brass">Profile</p>
+              <div className="border-b border-[#e5dfd3] px-5 py-5 md:border-b-0 md:border-r">
+                <p className="text-sm font-semibold text-slate-600">Profile</p>
                 <div className="mt-4 flex items-start gap-4">
                   <UserAvatar
                     firstName={currentUser.firstName}
@@ -521,8 +526,8 @@ export default async function DashboardPage() {
                     profileImageDataUrl={currentUser.profileImageDataUrl}
                     size={60}
                   />
-                  <div className="text-sm leading-7 text-slate-300">
-                    <p className="font-semibold text-white">
+                  <div className="text-sm leading-7 text-slate-700">
+                    <p className="font-semibold text-ink">
                       {currentUser.firstName} {currentUser.lastName}
                     </p>
                     <p>@{currentUser.username}</p>
@@ -532,24 +537,24 @@ export default async function DashboardPage() {
                 </div>
               </div>
 
-              <div className="border-b border-white/10 px-5 py-5 md:border-b-0 md:border-r">
-                <p className="text-xs uppercase tracking-[0.28em] text-brass">Today&apos;s Attendance</p>
-                <div className="mt-4 text-sm leading-7 text-slate-300">
+              <div className="border-b border-[#e5dfd3] px-5 py-5 md:border-b-0 md:border-r">
+                <p className="text-sm font-semibold text-slate-600">Today&apos;s Attendance</p>
+                <div className="mt-4 text-sm leading-7 text-slate-700">
                   <p>Clock In: {formatPortalDateTime(todayAttendance?.clockInAt ?? null)}</p>
                   <p>Clock Out: {formatPortalDateTime(todayAttendance?.clockOutAt ?? null)}</p>
-                  <p className="text-white">
+                  <p className="text-ink">
                     Status: {todayAttendance?.status ? formatStatusLabel(todayAttendance.status) : "Not started"}
                   </p>
                   {todayAttendance ? (
                     <p>
-                      Worked: <span className="text-white">{getWorkedDurationLabel(todayAttendance.clockInAt, todayAttendance.clockOutAt)}</span>
+                      Worked: <span className="text-ink">{getWorkedDurationLabel(todayAttendance.clockInAt, todayAttendance.clockOutAt)}</span>
                     </p>
                   ) : null}
                 </div>
               </div>
 
               <div className="px-5 py-5">
-                <p className="text-xs uppercase tracking-[0.28em] text-brass">Actions</p>
+                <p className="text-sm font-semibold text-slate-600">Actions</p>
                 <div className="mt-4 flex flex-col gap-3">
                   {!todayAttendance ? (
                     <form action={clockInAction}>
@@ -564,7 +569,7 @@ export default async function DashboardPage() {
                       </button>
                     </form>
                   ) : (
-                    <div className="text-sm leading-7 text-slate-300">Attendance for today is complete.</div>
+                    <div className="text-sm leading-7 text-slate-700">Attendance for today is complete.</div>
                   )}
                 </div>
               </div>
@@ -573,32 +578,33 @@ export default async function DashboardPage() {
         </div>
       </section>
 
-      <section className="section-divider py-8">
-        <div className="grid gap-12 pt-10 xl:grid-cols-[1.05fr_0.95fr]">
+      <section className="border-t border-[#e5dfd3] py-6 first:border-t-0">
+        <div className="grid gap-8 xl:grid-cols-[1.05fr_0.95fr]">
           <div>
             <SectionHeading
+              variant="portal"
               eyebrow="My Open Tasks"
               title="Current assignments"
               description="Open work stays visible here until you mark it complete."
             />
 
-            <div className="mt-8 border-y border-white/10">
+            <div className="mt-8 border-y border-[#e5dfd3]">
               {openTasks.length === 0 ? (
-                <div className="px-4 py-8 text-sm leading-8 text-slate-300">
+                <div className="px-4 py-8 text-sm leading-8 text-slate-700">
                   No open tasks assigned right now.
                 </div>
               ) : (
                 openTasks.map((task) => (
-                  <div key={task.id} className="border-b border-white/10 px-4 py-5 last:border-b-0">
+                  <div key={task.id} className="border-b border-[#e5dfd3] px-4 py-5 last:border-b-0">
                     <div className="grid gap-5 lg:grid-cols-[1.2fr_0.5fr_0.6fr_0.7fr_auto] lg:items-start">
                       <div>
                         <p className={`font-semibold ${getTaskDueTone(task.dueDate)}`}>{task.title}</p>
-                        <p className="mt-2 text-sm leading-7 text-slate-300">{task.description}</p>
+                        <p className="mt-2 text-sm leading-7 text-slate-700">{task.description}</p>
                       </div>
-                      <div className={`text-sm font-semibold uppercase tracking-[0.22em] ${getTaskPriorityClass(task.priority)}`}>
+                      <div className={`text-sm font-semibold ${getTaskPriorityClass(task.priority)}`}>
                         {task.priority}
                       </div>
-                      <div className="text-sm leading-7 text-white">{getTaskStatusLabel(task.status)}</div>
+                      <div className="text-sm leading-7 text-ink">{getTaskStatusLabel(task.status)}</div>
                       <div className={`text-sm leading-7 ${getTaskDueTone(task.dueDate)}`}>{formatPortalDate(task.dueDate)}</div>
                       <form action={updateTaskStatusAction} className="flex gap-3 lg:justify-end">
                         <input type="hidden" name="taskId" value={task.id} />
@@ -621,21 +627,22 @@ export default async function DashboardPage() {
 
           <div>
             <SectionHeading
+              variant="portal"
               eyebrow="Completed Work"
               title="Recently completed tasks"
               description="Closed work appears here as a short running history."
             />
 
-            <div className="mt-8 border-y border-white/10">
+            <div className="mt-8 border-y border-[#e5dfd3]">
               {completedTasks.length === 0 ? (
-                <div className="px-4 py-8 text-sm leading-8 text-slate-300">
+                <div className="px-4 py-8 text-sm leading-8 text-slate-700">
                   Completed work will appear here after you start closing tasks.
                 </div>
               ) : (
                 completedTasks.map((task) => (
-                  <div key={task.id} className="border-b border-white/10 px-4 py-5 last:border-b-0">
-                    <p className="font-semibold text-white">{task.title}</p>
-                    <p className="mt-2 text-sm leading-7 text-slate-300">
+                  <div key={task.id} className="border-b border-[#e5dfd3] px-4 py-5 last:border-b-0">
+                    <p className="font-semibold text-ink">{task.title}</p>
+                    <p className="mt-2 text-sm leading-7 text-slate-700">
                       Completed {formatPortalDateTime(task.completedAt)}
                     </p>
                   </div>
@@ -646,51 +653,52 @@ export default async function DashboardPage() {
         </div>
       </section>
 
-      <section className="section-divider py-8">
-        <div className="pt-10">
+      <section className="border-t border-[#e5dfd3] py-6 first:border-t-0">
+        <div>
           <SectionHeading
+              variant="portal"
             eyebrow="Latest Timesheet"
             title="Latest generated week"
             description="The newest saved weekly roll-up stays visible here, with the full archive available on the timesheets page."
           />
 
-          <div className="mt-8 border-y border-white/10">
+          <div className="mt-8 border-y border-[#e5dfd3]">
             {!latestWeeklyTimesheet ? (
-              <div className="flex flex-wrap items-center justify-between gap-4 px-4 py-8 text-sm leading-8 text-slate-300">
+              <div className="flex flex-wrap items-center justify-between gap-4 px-4 py-8 text-sm leading-8 text-slate-700">
                 <p>Your first weekly timesheet will appear here after the Sunday generation run.</p>
-                <Link href="/portal/timesheets" className="text-sm font-semibold text-brass transition hover:text-white">
+                <Link href="/portal/timesheets" className="text-sm font-semibold text-brass transition-colors hover:text-ink">
                   Open timesheets
                 </Link>
               </div>
             ) : (
               <div className="grid gap-0 md:grid-cols-[1.2fr_0.7fr_0.7fr_1fr_auto] md:items-center">
-                <div className="border-b border-white/10 px-5 py-5 md:border-b-0 md:border-r">
-                  <p className="text-xs uppercase tracking-[0.26em] text-brass">Week</p>
-                  <p className="mt-2 text-lg font-semibold text-white">
+                <div className="border-b border-[#e5dfd3] px-5 py-5 md:border-b-0 md:border-r">
+                  <p className="text-sm font-semibold text-slate-600">Week</p>
+                  <p className="mt-2 text-lg font-semibold text-ink">
                     {formatWorkWeekLabel({
                       weekStartDate: latestWeeklyTimesheet.weekStartDate,
                       weekEndDate: latestWeeklyTimesheet.weekEndDate
                     })}
                   </p>
                 </div>
-                <div className="border-b border-white/10 px-5 py-5 md:border-b-0 md:border-r">
-                  <p className="text-xs uppercase tracking-[0.26em] text-brass">Days worked</p>
-                  <p className="mt-2 font-display text-3xl text-white">{latestWeeklyTimesheet.totalDaysWorked}</p>
+                <div className="border-b border-[#e5dfd3] px-5 py-5 md:border-b-0 md:border-r">
+                  <p className="text-sm font-semibold text-slate-600">Days worked</p>
+                  <p className="mt-2 text-2xl font-semibold text-ink">{latestWeeklyTimesheet.totalDaysWorked}</p>
                 </div>
-                <div className="border-b border-white/10 px-5 py-5 md:border-b-0 md:border-r">
-                  <p className="text-xs uppercase tracking-[0.26em] text-brass">Total time</p>
-                  <p className="mt-2 font-display text-3xl text-white">
+                <div className="border-b border-[#e5dfd3] px-5 py-5 md:border-b-0 md:border-r">
+                  <p className="text-sm font-semibold text-slate-600">Total time</p>
+                  <p className="mt-2 text-2xl font-semibold text-ink">
                     {formatWorkedMinutesLabel(latestWeeklyTimesheet.totalMinutesWorked)}
                   </p>
                 </div>
-                <div className="border-b border-white/10 px-5 py-5 md:border-b-0 md:border-r">
-                  <p className="text-xs uppercase tracking-[0.26em] text-brass">Summary</p>
-                  <p className="mt-2 text-sm leading-7 text-slate-300">{latestWeeklyTimesheet.statusSummary}</p>
+                <div className="border-b border-[#e5dfd3] px-5 py-5 md:border-b-0 md:border-r">
+                  <p className="text-sm font-semibold text-slate-600">Summary</p>
+                  <p className="mt-2 text-sm leading-7 text-slate-700">{latestWeeklyTimesheet.statusSummary}</p>
                 </div>
                 <div className="px-5 py-5 md:text-right">
                   <Link
                     href={`/portal/timesheets?timesheet=${latestWeeklyTimesheet.id}`}
-                    className="text-sm font-semibold text-brass transition hover:text-white"
+                    className="text-sm font-semibold text-brass transition-colors hover:text-ink"
                   >
                     Open detail
                   </Link>

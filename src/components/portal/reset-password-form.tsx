@@ -56,10 +56,10 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
       </div>
 
       <AuthFeedback state={state} />
-      <SubmitButton label="Update Password" pendingLabel="Updating Password..." />
+      <SubmitButton label="Update Password" pendingLabel="Updating Password..." variant="auth" />
 
       {state.status === "success" ? (
-        <Link href="/portal/sign-in" className="block text-center text-sm font-medium text-brass transition hover:text-ink">
+        <Link href="/portal/sign-in" className="block text-center text-sm font-medium text-ink transition-colors hover:text-brass">
           Return to sign in
         </Link>
       ) : null}

@@ -123,22 +123,23 @@ export default async function PastStaffPage({
   const existingUserIdSet = new Set(existingUsers.map((user) => user.id));
 
   return (
-    <main className="section-shell py-10">
-      <section className="section-divider py-8">
-        <div className="pt-10">
+    <main className="section-shell py-6">
+      <section className="border-t border-[#e5dfd3] py-6 first:border-t-0">
+        <div>
           <SectionHeading
+              variant="portal"
             eyebrow="Past Staff"
             title="Past staff register"
             description="Search archived staff records and filter them by year or archive order."
           />
 
-          <div className="mt-8 flex flex-wrap items-center gap-3 text-sm text-slate-300">
+          <div className="mt-8 flex flex-wrap items-center gap-3 text-sm text-slate-700">
             <Link href="/portal/staff" className="button-secondary">
               Back to Staff
             </Link>
           </div>
 
-          <form className="mt-8 border-y border-white/10 py-6">
+          <form className="mt-8 border-y border-[#e5dfd3] py-6">
             <div className="grid gap-4 lg:grid-cols-[1.4fr_0.7fr_0.7fr_0.8fr_auto_auto] lg:items-end">
               <div>
                 <label htmlFor="q" className="auth-label">
@@ -203,18 +204,19 @@ export default async function PastStaffPage({
         </div>
       </section>
 
-      <section className="section-divider py-8">
-        <div className="pt-10">
+      <section className="border-t border-[#e5dfd3] py-6 first:border-t-0">
+        <div>
           <div className="flex flex-wrap items-center justify-between gap-4">
             <SectionHeading
+              variant="portal"
               eyebrow="Archived Records"
               title="Past staff members"
               description={`${pastStaff.length} archived staff record${pastStaff.length === 1 ? "" : "s"} found.`}
             />
           </div>
 
-          <div className="mt-8 border-y border-white/10">
-            <div className="hidden grid-cols-[1.05fr_0.95fr_0.7fr_0.7fr_0.7fr] gap-5 border-b border-white/10 px-4 py-4 text-xs uppercase tracking-[0.26em] text-brass lg:grid">
+          <div className="mt-8 border-y border-[#e5dfd3]">
+            <div className="hidden grid-cols-[1.05fr_0.95fr_0.7fr_0.7fr_0.7fr] gap-5 border-b border-[#e5dfd3] px-4 py-4 text-sm font-semibold text-slate-600 lg:grid">
               <span>Staff member</span>
               <span>Contact</span>
               <span>Tenure</span>
@@ -223,15 +225,15 @@ export default async function PastStaffPage({
             </div>
 
             {pastStaff.length === 0 ? (
-              <div className="px-4 py-8 text-sm leading-8 text-slate-300">
+              <div className="px-4 py-8 text-sm leading-8 text-slate-700">
                 No past staff records match the current search or filters.
               </div>
             ) : (
               pastStaff.map((staffUser) => (
-                <div key={staffUser.id} className="border-b border-white/10 px-4 py-5 last:border-b-0">
+                <div key={staffUser.id} className="border-b border-[#e5dfd3] px-4 py-5 last:border-b-0">
                   <div className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr_0.7fr_0.7fr_0.7fr] lg:items-start">
                     <div className="flex items-start gap-4">
-                      <div className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-white/10 text-base font-semibold text-white">
+                      <div className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-[#e5dfd3] bg-[#f4f1ea] text-base font-semibold text-ink">
                         {staffUser.profileImageDataUrl ? (
                           <Image
                             src={staffUser.profileImageDataUrl}
@@ -249,35 +251,35 @@ export default async function PastStaffPage({
                         )}
                       </div>
                       <div>
-                        <p className="font-display text-2xl text-white">
+                        <p className="text-lg font-semibold text-ink">
                           {staffUser.firstName} {staffUser.lastName}
                         </p>
-                        <p className="mt-1 text-sm text-slate-400">
+                        <p className="mt-1 text-sm text-slate-600">
                           @{staffUser.username}
                           {staffUser.staffId ? ` | ${staffUser.staffId}` : ""}
                         </p>
                       </div>
                     </div>
 
-                    <div className="text-sm leading-7 text-slate-300">
+                    <div className="text-sm leading-7 text-slate-700">
                       <p>{staffUser.email || "No email supplied"}</p>
                     </div>
 
-                    <div className="text-sm leading-7 text-slate-300">
+                    <div className="text-sm leading-7 text-slate-700">
                       <p>
-                        Tenure: <span className="text-white">{staffUser.tenureLabel}</span>
+                        Tenure: <span className="text-ink">{staffUser.tenureLabel}</span>
                       </p>
                       <p>
-                        Role: <span className="text-white">{staffUser.role}</span>
+                        Role: <span className="text-ink">{staffUser.role}</span>
                       </p>
                     </div>
 
-                    <div className="text-sm leading-7 text-slate-300">
+                    <div className="text-sm leading-7 text-slate-700">
                       <p>
-                        Archived <span className="text-white">{formatPortalDateTime(staffUser.deactivatedAt)}</span>
+                        Archived <span className="text-ink">{formatPortalDateTime(staffUser.deactivatedAt)}</span>
                       </p>
                       <p>
-                        Joined <span className="text-white">{formatPortalDateTime(staffUser.joinedAt)}</span>
+                        Joined <span className="text-ink">{formatPortalDateTime(staffUser.joinedAt)}</span>
                       </p>
                     </div>
 

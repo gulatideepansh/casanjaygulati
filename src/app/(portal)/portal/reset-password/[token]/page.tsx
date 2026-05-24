@@ -32,12 +32,12 @@ export default async function ResetPasswordPage({ params }: ResetPasswordPagePro
   return (
     <AuthShell
       eyebrow="Secure Reset"
-      title="Choose a fresh password for the portal."
-      description="This link is time-limited and single-use. Once the password changes, existing sessions are removed automatically."
+      title="Choose a new password"
+      description="Use this form before the reset link expires."
       footer={
-        <p className="text-sm text-slate-400">
+        <p className="text-sm text-slate-600">
           Need a new link?{" "}
-          <Link href="/portal/forgot-password" className="text-brass transition hover:text-[#8bc6ca]">
+          <Link href="/portal/forgot-password" className="font-medium text-ink transition-colors hover:text-brass">
             Request another reset email
           </Link>
         </p>
@@ -46,7 +46,7 @@ export default async function ResetPasswordPage({ params }: ResetPasswordPagePro
       {activeToken ? (
         <ResetPasswordForm token={token} />
       ) : (
-        <div className="rounded-2xl border border-rose-400/20 bg-rose-500/10 px-5 py-4 text-sm text-rose-100">
+        <div className="border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">
           This password reset link is invalid or has expired.
         </div>
       )}

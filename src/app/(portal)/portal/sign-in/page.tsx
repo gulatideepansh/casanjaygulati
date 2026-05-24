@@ -18,8 +18,8 @@ export default async function SignInPage() {
   return (
     <AuthShell
       eyebrow="Secure Sign In"
-      title="Access the staff portal with your account."
-      description="Use your username or email address plus password to enter the internal portal. Staff accounts are created directly by the admin."
+      title="Staff portal sign in"
+      description="Use your username or email address and password to continue."
     >
       <SignInForm />
     </AuthShell>

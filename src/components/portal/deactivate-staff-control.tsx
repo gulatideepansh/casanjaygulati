@@ -12,7 +12,7 @@ export function DeactivateStaffControl({ staffUserId }: { staffUserId: string })
       <button
         type="button"
         onClick={() => setIsOpen((current) => !current)}
-        className="text-sm font-semibold text-amber-200 transition hover:text-white"
+        className="text-sm font-semibold text-amber-700 transition-colors hover:text-ink"
       >
         Deactivate staff
       </button>
@@ -37,11 +37,11 @@ export function DeactivateStaffControl({ staffUserId }: { staffUserId: string })
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className="text-sm font-semibold text-slate-300 transition hover:text-white"
+              className="text-sm font-semibold text-slate-700 transition-colors hover:text-ink"
             >
               Cancel
             </button>
-            <button type="submit" className="text-sm font-semibold text-amber-200 transition hover:text-white">
+            <button type="submit" className="text-sm font-semibold text-amber-700 transition-colors hover:text-ink">
               Confirm
             </button>
           </div>

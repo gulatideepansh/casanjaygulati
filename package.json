@@ -14,7 +14,8 @@
     "db:push": "node --env-file=.env --env-file=.env.local ./node_modules/prisma/build/index.js db push",
     "db:setup": "npm run db:push && npm run db:seed",
     "db:seed": "node --env-file=.env --env-file=.env.local prisma/seed.mjs",
-    "db:import:production": "node --env-file=.env --env-file=.env.production-db scripts/migrate-sqlite-to-postgres.mjs"
+    "db:import:production": "node --env-file=.env --env-file=.env.production-db scripts/migrate-sqlite-to-postgres.mjs",
+    "auth:reset-password": "node --env-file=.env --env-file=.env.local scripts/reset-portal-password.mjs"
   },
   "prisma": {
     "seed": "node prisma/seed.mjs"

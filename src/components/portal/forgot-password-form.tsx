@@ -28,7 +28,7 @@ export function ForgotPasswordForm() {
       </div>
 
       <AuthFeedback state={state} />
-      <SubmitButton label="Send Reset Link" pendingLabel="Sending Link..." />
+      <SubmitButton label="Send Reset Link" pendingLabel="Sending Link..." variant="auth" />
     </form>
   );
 }

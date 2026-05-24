@@ -19,12 +19,12 @@ export default async function ForgotPasswordPage() {
   return (
     <AuthShell
       eyebrow="Password Recovery"
-      title="Reset a portal account password."
-      description="Enter the staff account email address. The portal will generate a time-limited reset link and email it through the configured SMTP service."
+      title="Reset password"
+      description="Enter the staff account email address to receive a reset link."
       footer={
         <p className="text-sm text-slate-600">
           Remembered your password?{" "}
-          <Link href="/portal/sign-in" className="font-medium text-brass transition hover:text-ink">
+          <Link href="/portal/sign-in" className="font-medium text-ink transition-colors hover:text-brass">
             Return to sign in
           </Link>
         </p>

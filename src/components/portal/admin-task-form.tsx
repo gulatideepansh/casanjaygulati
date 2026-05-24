@@ -46,7 +46,7 @@ export function AdminTaskForm({
           ))}
         </select>
         {fieldError(state, "assignedToUserId") ? (
-          <p className="mt-2 text-sm text-rose-300">{fieldError(state, "assignedToUserId")}</p>
+          <p className="mt-2 text-sm text-rose-700">{fieldError(state, "assignedToUserId")}</p>
         ) : null}
       </div>
 
@@ -57,7 +57,7 @@ export function AdminTaskForm({
           </label>
           <input id="task-title" name="title" className="auth-input" />
           {fieldError(state, "title") ? (
-            <p className="mt-2 text-sm text-rose-300">{fieldError(state, "title")}</p>
+            <p className="mt-2 text-sm text-rose-700">{fieldError(state, "title")}</p>
           ) : null}
         </div>
 
@@ -72,7 +72,7 @@ export function AdminTaskForm({
             <option value="URGENT">Urgent</option>
           </select>
           {fieldError(state, "priority") ? (
-            <p className="mt-2 text-sm text-rose-300">{fieldError(state, "priority")}</p>
+            <p className="mt-2 text-sm text-rose-700">{fieldError(state, "priority")}</p>
           ) : null}
         </div>
       </div>
@@ -83,7 +83,7 @@ export function AdminTaskForm({
         </label>
         <textarea id="task-description" name="description" className="auth-input min-h-32 resize-y" />
         {fieldError(state, "description") ? (
-          <p className="mt-2 text-sm text-rose-300">{fieldError(state, "description")}</p>
+          <p className="mt-2 text-sm text-rose-700">{fieldError(state, "description")}</p>
         ) : null}
       </div>
 
@@ -93,7 +93,7 @@ export function AdminTaskForm({
         </label>
         <input id="task-dueDate" name="dueDate" type="date" className="auth-input" />
         {fieldError(state, "dueDate") ? (
-          <p className="mt-2 text-sm text-rose-300">{fieldError(state, "dueDate")}</p>
+          <p className="mt-2 text-sm text-rose-700">{fieldError(state, "dueDate")}</p>
         ) : null}
       </div>
 

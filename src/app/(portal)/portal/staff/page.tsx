@@ -25,16 +25,17 @@ export default async function StaffManagementPage() {
   });
 
   return (
-    <main className="section-shell py-10">
-      <section className="section-divider py-8">
-        <div className="pt-10">
+    <main className="section-shell py-6">
+      <section className="border-t border-[#e5dfd3] py-6 first:border-t-0">
+        <div>
           <SectionHeading
+              variant="portal"
             eyebrow="Staff Management"
             title="Staff management"
             description="Create staff accounts and manage access."
           />
 
-          <div className="mt-8 border-y border-white/10 py-8">
+          <div className="mt-8 border-y border-[#e5dfd3] py-8">
             <div className="max-w-3xl">
               <AdminStaffForm />
             </div>
@@ -42,22 +43,23 @@ export default async function StaffManagementPage() {
         </div>
       </section>
 
-      <section className="section-divider py-8">
-        <div className="pt-10">
+      <section className="border-t border-[#e5dfd3] py-6 first:border-t-0">
+        <div>
           <SectionHeading
+              variant="portal"
             eyebrow="Staff Register"
             title="All staff accounts"
             description="Manage active staff records and move former team members into the past staff register."
           />
 
-          <div className="mt-8 flex flex-wrap items-center gap-3 text-sm text-slate-300">
+          <div className="mt-8 flex flex-wrap items-center gap-3 text-sm text-slate-700">
             <Link href="/portal/past-staff" className="button-secondary">
               View Past Staff
             </Link>
           </div>
 
-          <div className="mt-8 border-y border-white/10">
-            <div className="hidden grid-cols-[1.05fr_0.95fr_0.7fr_0.7fr] gap-5 border-b border-white/10 px-4 py-4 text-xs uppercase tracking-[0.26em] text-brass lg:grid">
+          <div className="mt-8 border-y border-[#e5dfd3]">
+            <div className="hidden grid-cols-[1.05fr_0.95fr_0.7fr_0.7fr] gap-5 border-b border-[#e5dfd3] px-4 py-4 text-sm font-semibold text-slate-600 lg:grid">
               <span>Staff member</span>
               <span>Contact</span>
               <span>Login details</span>
@@ -65,15 +67,15 @@ export default async function StaffManagementPage() {
             </div>
 
             {staffMembers.length === 0 ? (
-              <div className="px-4 py-8 text-sm leading-8 text-slate-300">
+              <div className="px-4 py-8 text-sm leading-8 text-slate-700">
                 No staff accounts exist yet.
               </div>
             ) : (
               staffMembers.map((staffUser) => (
-                <div key={staffUser.id} className="border-b border-white/10 px-4 py-5 last:border-b-0">
+                <div key={staffUser.id} className="border-b border-[#e5dfd3] px-4 py-5 last:border-b-0">
                   <div className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr_0.7fr_0.7fr] lg:items-start">
                     <div className="flex items-start gap-4">
-                      <div className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-white/10 text-base font-semibold text-white">
+                      <div className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-[#e5dfd3] bg-[#f4f1ea] text-base font-semibold text-ink">
                         {staffUser.profileImageDataUrl ? (
                           <Image
                             src={staffUser.profileImageDataUrl}
@@ -91,20 +93,20 @@ export default async function StaffManagementPage() {
                         )}
                       </div>
                       <div>
-                        <p className="font-display text-2xl text-white">
+                        <p className="text-lg font-semibold text-ink">
                           {staffUser.firstName} {staffUser.lastName}
                         </p>
-                        <p className="mt-1 text-sm text-slate-400">@{staffUser.username}</p>
+                        <p className="mt-1 text-sm text-slate-600">@{staffUser.username}</p>
                       </div>
                     </div>
 
-                    <div className="text-sm leading-7 text-slate-300">
+                    <div className="text-sm leading-7 text-slate-700">
                       <p>{staffUser.email || "No email supplied"}</p>
                     </div>
 
-                    <div className="text-sm leading-7 text-slate-300">
-                      <p>Staff ID: <span className="text-white">{staffUser.staffId || "Not assigned"}</span></p>
-                      <p>Role: <span className="text-white">{staffUser.role}</span></p>
+                    <div className="text-sm leading-7 text-slate-700">
+                      <p>Staff ID: <span className="text-ink">{staffUser.staffId || "Not assigned"}</span></p>
+                      <p>Role: <span className="text-ink">{staffUser.role}</span></p>
                     </div>
 
                     <div className="flex flex-col items-start gap-4 lg:items-end">
@@ -112,7 +114,7 @@ export default async function StaffManagementPage() {
                       <form action={deleteStaffAction.bind(null, staffUser.id)}>
                         <button
                           type="submit"
-                          className="text-sm font-semibold text-rose-200 transition hover:text-white"
+                          className="text-sm font-semibold text-rose-700 transition-colors hover:text-ink"
                         >
                           Delete staff
                         </button>

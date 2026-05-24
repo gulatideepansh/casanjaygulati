@@ -39,7 +39,7 @@ export function SignInForm() {
           <label htmlFor="password" className="auth-label mb-0">
             Password
           </label>
-          <Link href="/portal/forgot-password" className="text-sm font-medium text-brass transition hover:text-ink">
+          <Link href="/portal/forgot-password" className="text-sm font-medium text-ink transition-colors hover:text-brass">
             Forgot password?
           </Link>
         </div>
@@ -57,7 +57,7 @@ export function SignInForm() {
       </div>
 
       <AuthFeedback state={state} />
-      <SubmitButton label="Sign In" pendingLabel="Signing In..." />
+      <SubmitButton label="Sign In" pendingLabel="Signing In..." variant="auth" />
     </form>
   );
 }

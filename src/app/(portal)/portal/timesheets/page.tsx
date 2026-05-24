@@ -222,10 +222,11 @@ export default async function TimesheetsPage({
       : null);
 
   return (
-    <main className="section-shell py-10">
-      <section className="section-divider py-8">
-        <div className="pt-10">
+    <main className="section-shell py-6">
+      <section className="border-t border-[#e5dfd3] py-6 first:border-t-0">
+        <div>
           <SectionHeading
+              variant="portal"
             eyebrow={isAdmin ? "Timesheet Control" : "My Timesheets"}
             title={isAdmin ? "Weekly staff timesheets" : "Weekly timesheets"}
             description={
@@ -235,7 +236,7 @@ export default async function TimesheetsPage({
             }
           />
 
-          <div className="mt-8 flex flex-wrap items-center gap-3 text-sm text-slate-300">
+          <div className="mt-8 flex flex-wrap items-center gap-3 text-sm text-slate-700">
             <Link href="/portal/dashboard" className="button-secondary">
               Back to Dashboard
             </Link>
@@ -252,35 +253,36 @@ export default async function TimesheetsPage({
       </section>
 
       {!isAdmin && livePreview ? (
-        <section className="section-divider py-8">
-          <div className="pt-10">
+        <section className="border-t border-[#e5dfd3] py-6 first:border-t-0">
+          <div>
             <SectionHeading
+              variant="portal"
               eyebrow="Current Work Week"
               title={formatWorkWeekLabel(livePreview.range)}
               description="This live preview updates from your attendance records before the weekly summary is formally generated."
             />
 
-            <div className="mt-8 border-y border-white/10">
+            <div className="mt-8 border-y border-[#e5dfd3]">
               <div className="grid gap-0 md:grid-cols-4">
-                <div className="border-b border-white/10 px-5 py-5 md:border-b-0 md:border-r">
-                  <p className="text-xs uppercase tracking-[0.26em] text-brass">Days worked</p>
-                  <p className="mt-2 font-display text-3xl text-white">{livePreview.totalDaysWorked}</p>
+                <div className="border-b border-[#e5dfd3] px-5 py-5 md:border-b-0 md:border-r">
+                  <p className="text-sm font-semibold text-slate-600">Days worked</p>
+                  <p className="mt-2 text-2xl font-semibold text-ink">{livePreview.totalDaysWorked}</p>
                 </div>
-                <div className="border-b border-white/10 px-5 py-5 md:border-b-0 md:border-r">
-                  <p className="text-xs uppercase tracking-[0.26em] text-brass">Total time</p>
-                  <p className="mt-2 font-display text-3xl text-white">{formatWorkedMinutesLabel(livePreview.totalMinutesWorked)}</p>
+                <div className="border-b border-[#e5dfd3] px-5 py-5 md:border-b-0 md:border-r">
+                  <p className="text-sm font-semibold text-slate-600">Total time</p>
+                  <p className="mt-2 text-2xl font-semibold text-ink">{formatWorkedMinutesLabel(livePreview.totalMinutesWorked)}</p>
                 </div>
-                <div className="border-b border-white/10 px-5 py-5 md:border-b-0 md:border-r">
-                  <p className="text-xs uppercase tracking-[0.26em] text-brass">Flags</p>
-                  <p className="mt-2 text-sm leading-7 text-slate-300">{getFlagsLabel(livePreview)}</p>
+                <div className="border-b border-[#e5dfd3] px-5 py-5 md:border-b-0 md:border-r">
+                  <p className="text-sm font-semibold text-slate-600">Flags</p>
+                  <p className="mt-2 text-sm leading-7 text-slate-700">{getFlagsLabel(livePreview)}</p>
                 </div>
                 <div className="px-5 py-5">
-                  <p className="text-xs uppercase tracking-[0.26em] text-brass">Summary</p>
-                  <p className="mt-2 text-sm leading-7 text-slate-300">{livePreview.statusSummary}</p>
+                  <p className="text-sm font-semibold text-slate-600">Summary</p>
+                  <p className="mt-2 text-sm leading-7 text-slate-700">{livePreview.statusSummary}</p>
                 </div>
               </div>
 
-              <div className="hidden grid-cols-[1fr_0.9fr_0.8fr_0.8fr_0.6fr] gap-5 border-y border-white/10 px-4 py-4 text-xs uppercase tracking-[0.26em] text-brass lg:grid">
+              <div className="hidden grid-cols-[1fr_0.9fr_0.8fr_0.8fr_0.6fr] gap-5 border-y border-[#e5dfd3] px-4 py-4 text-sm font-semibold text-slate-600 lg:grid">
                 <span>Work date</span>
                 <span>Status</span>
                 <span>Clock in</span>
@@ -289,13 +291,13 @@ export default async function TimesheetsPage({
               </div>
 
               {livePreview.entries.map((entry) => (
-                <div key={entry.workDate.toISOString()} className="border-b border-white/10 px-4 py-5 last:border-b-0">
+                <div key={entry.workDate.toISOString()} className="border-b border-[#e5dfd3] px-4 py-5 last:border-b-0">
                   <div className="grid gap-5 lg:grid-cols-[1fr_0.9fr_0.8fr_0.8fr_0.6fr] lg:items-center">
-                    <div className="font-semibold text-white">{formatPortalDate(entry.workDate)}</div>
-                    <div className="text-sm leading-7 text-slate-300">{entry.attendanceStatus}</div>
-                    <div className="text-sm leading-7 text-slate-300">{formatPortalTime(entry.clockInAt)}</div>
-                    <div className="text-sm leading-7 text-slate-300">{formatPortalTime(entry.clockOutAt)}</div>
-                    <div className="text-sm leading-7 text-white">{formatWorkedMinutesLabel(entry.workedMinutes)}</div>
+                    <div className="font-semibold text-ink">{formatPortalDate(entry.workDate)}</div>
+                    <div className="text-sm leading-7 text-slate-700">{entry.attendanceStatus}</div>
+                    <div className="text-sm leading-7 text-slate-700">{formatPortalTime(entry.clockInAt)}</div>
+                    <div className="text-sm leading-7 text-slate-700">{formatPortalTime(entry.clockOutAt)}</div>
+                    <div className="text-sm leading-7 text-ink">{formatWorkedMinutesLabel(entry.workedMinutes)}</div>
                   </div>
                 </div>
               ))}
@@ -304,9 +306,10 @@ export default async function TimesheetsPage({
         </section>
       ) : null}
 
-      <section className="section-divider py-8">
-        <div className="pt-10">
+      <section className="border-t border-[#e5dfd3] py-6 first:border-t-0">
+        <div>
           <SectionHeading
+              variant="portal"
             eyebrow={isAdmin ? "Saved Timesheets" : "Past Weeks"}
             title={isAdmin ? "Generated weekly records" : "Saved weekly timesheets"}
             description={
@@ -317,7 +320,7 @@ export default async function TimesheetsPage({
           />
 
           {isAdmin ? (
-            <div className="mt-8 border-y border-white/10 py-6">
+            <div className="mt-8 border-y border-[#e5dfd3] py-6">
               <form className="grid gap-4 md:grid-cols-[0.7fr_0.9fr_auto] md:items-end">
                 <label>
                   <span className="auth-label">Week start (Monday)</span>
@@ -342,12 +345,12 @@ export default async function TimesheetsPage({
                   </Link>
                 </div>
               </form>
-              <p className="mt-4 text-sm text-slate-400">Approved staff in the register: {staffMembers.length}</p>
+              <p className="mt-4 text-sm text-slate-600">Approved staff in the register: {staffMembers.length}</p>
             </div>
           ) : null}
 
-          <div className="mt-8 border-y border-white/10">
-            <div className={`hidden gap-5 border-b border-white/10 px-4 py-4 text-xs uppercase tracking-[0.26em] text-brass lg:grid ${isAdmin ? "lg:grid-cols-[0.9fr_0.95fr_0.5fr_0.6fr_0.8fr_0.95fr_0.45fr]" : "lg:grid-cols-[1fr_0.55fr_0.7fr_0.85fr_0.5fr]"}`}>
+          <div className="mt-8 border-y border-[#e5dfd3]">
+            <div className={`hidden gap-5 border-b border-[#e5dfd3] px-4 py-4 text-sm font-semibold text-slate-600 lg:grid ${isAdmin ? "lg:grid-cols-[0.9fr_0.95fr_0.5fr_0.6fr_0.8fr_0.95fr_0.45fr]" : "lg:grid-cols-[1fr_0.55fr_0.7fr_0.85fr_0.5fr]"}`}>
               <span>Week</span>
               {isAdmin ? <span>Staff member</span> : null}
               <span>Days</span>
@@ -358,14 +361,14 @@ export default async function TimesheetsPage({
             </div>
 
             {timesheets.length === 0 ? (
-              <div className="px-4 py-8 text-sm leading-8 text-slate-300">
+              <div className="px-4 py-8 text-sm leading-8 text-slate-700">
                 {isAdmin
                   ? "No weekly timesheets match this filter yet. Generate the latest closed week to create the first set."
                   : "No saved weekly timesheets yet. Your first generated week will appear here after the Sunday roll-up or an admin manual run."}
               </div>
             ) : (
               timesheets.map((timesheet) => (
-                <div key={timesheet.id} className="border-b border-white/10 px-4 py-5 last:border-b-0">
+                <div key={timesheet.id} className="border-b border-[#e5dfd3] px-4 py-5 last:border-b-0">
                   <div
                     className={`grid gap-5 lg:items-center ${
                       isAdmin
@@ -373,15 +376,15 @@ export default async function TimesheetsPage({
                         : "lg:grid-cols-[1fr_0.55fr_0.7fr_0.85fr_0.5fr]"
                     }`}
                   >
-                    <div className="font-semibold text-white">
+                    <div className="font-semibold text-ink">
                       {formatWorkWeekLabel({
                         weekStartDate: timesheet.weekStartDate,
                         weekEndDate: timesheet.weekEndDate
                       })}
                     </div>
                     {isAdmin ? (
-                      <div className="text-sm leading-7 text-slate-300">
-                        <p className="text-white">
+                      <div className="text-sm leading-7 text-slate-700">
+                        <p className="text-ink">
                           {timesheet.user.firstName} {timesheet.user.lastName}
                         </p>
                         <p>
@@ -390,10 +393,10 @@ export default async function TimesheetsPage({
                         </p>
                       </div>
                     ) : null}
-                    <div className="text-sm leading-7 text-white">{timesheet.totalDaysWorked}</div>
-                    <div className="text-sm leading-7 text-white">{formatWorkedMinutesLabel(timesheet.totalMinutesWorked)}</div>
-                    <div className="text-sm leading-7 text-slate-300">{getFlagsLabel(timesheet)}</div>
-                    <div className="text-sm leading-7 text-slate-300">{timesheet.statusSummary}</div>
+                    <div className="text-sm leading-7 text-ink">{timesheet.totalDaysWorked}</div>
+                    <div className="text-sm leading-7 text-ink">{formatWorkedMinutesLabel(timesheet.totalMinutesWorked)}</div>
+                    <div className="text-sm leading-7 text-slate-700">{getFlagsLabel(timesheet)}</div>
+                    <div className="text-sm leading-7 text-slate-700">{timesheet.statusSummary}</div>
                     <div className="lg:text-right">
                       <Link
                         href={buildTimesheetHref({
@@ -401,7 +404,7 @@ export default async function TimesheetsPage({
                           week: resolvedSearchParams.week,
                           staff: resolvedSearchParams.staff
                         })}
-                        className="text-sm font-semibold text-brass transition hover:text-white"
+                        className="text-sm font-semibold text-brass transition-colors hover:text-ink"
                       >
                         Open
                       </Link>
@@ -415,9 +418,10 @@ export default async function TimesheetsPage({
       </section>
 
       {activeTimesheet ? (
-        <section className="section-divider py-8">
-          <div className="pt-10">
+        <section className="border-t border-[#e5dfd3] py-6 first:border-t-0">
+          <div>
             <SectionHeading
+              variant="portal"
               eyebrow={isAdmin ? "Weekly Detail" : "Timesheet Detail"}
               title={`${activeTimesheet.user.firstName} ${activeTimesheet.user.lastName}`}
               description={`Week: ${formatWorkWeekLabel({
@@ -426,7 +430,7 @@ export default async function TimesheetsPage({
               })}`}
             />
 
-            <div className="mt-8 flex flex-wrap items-center gap-3 text-sm text-slate-300">
+            <div className="mt-8 flex flex-wrap items-center gap-3 text-sm text-slate-700">
               <Link href={`/portal/timesheets/${activeTimesheet.id}/export`} className="button-secondary">
                 Export PDF
               </Link>
@@ -447,32 +451,32 @@ export default async function TimesheetsPage({
                   </button>
                 </form>
               ) : null}
-              <span className="text-sm text-slate-400">Generated {formatPortalDateTime(activeTimesheet.generatedAt)}</span>
+              <span className="text-sm text-slate-600">Generated {formatPortalDateTime(activeTimesheet.generatedAt)}</span>
             </div>
 
-            <div className="mt-8 border-y border-white/10">
+            <div className="mt-8 border-y border-[#e5dfd3]">
               <div className="grid gap-0 md:grid-cols-5">
-                <div className="border-b border-white/10 px-5 py-5 md:border-b-0 md:border-r">
-                  <p className="text-xs uppercase tracking-[0.26em] text-brass">Days worked</p>
-                  <p className="mt-2 font-display text-3xl text-white">{activeTimesheet.totalDaysWorked}</p>
+                <div className="border-b border-[#e5dfd3] px-5 py-5 md:border-b-0 md:border-r">
+                  <p className="text-sm font-semibold text-slate-600">Days worked</p>
+                  <p className="mt-2 text-2xl font-semibold text-ink">{activeTimesheet.totalDaysWorked}</p>
                 </div>
-                <div className="border-b border-white/10 px-5 py-5 md:border-b-0 md:border-r">
-                  <p className="text-xs uppercase tracking-[0.26em] text-brass">Total time</p>
-                  <p className="mt-2 font-display text-3xl text-white">{formatWorkedMinutesLabel(activeTimesheet.totalMinutesWorked)}</p>
+                <div className="border-b border-[#e5dfd3] px-5 py-5 md:border-b-0 md:border-r">
+                  <p className="text-sm font-semibold text-slate-600">Total time</p>
+                  <p className="mt-2 text-2xl font-semibold text-ink">{formatWorkedMinutesLabel(activeTimesheet.totalMinutesWorked)}</p>
                 </div>
-                <div className="border-b border-white/10 px-5 py-5 md:border-b-0 md:border-r">
-                  <p className="text-xs uppercase tracking-[0.26em] text-brass">Late arrivals</p>
-                  <p className="mt-2 font-display text-3xl text-white">{activeTimesheet.lateCount}</p>
+                <div className="border-b border-[#e5dfd3] px-5 py-5 md:border-b-0 md:border-r">
+                  <p className="text-sm font-semibold text-slate-600">Late arrivals</p>
+                  <p className="mt-2 text-2xl font-semibold text-ink">{activeTimesheet.lateCount}</p>
                 </div>
-                <div className="border-b border-white/10 px-5 py-5 md:border-b-0 md:border-r">
-                  <p className="text-xs uppercase tracking-[0.26em] text-brass">Early / missed</p>
-                  <p className="mt-2 text-sm leading-7 text-slate-300">
+                <div className="border-b border-[#e5dfd3] px-5 py-5 md:border-b-0 md:border-r">
+                  <p className="text-sm font-semibold text-slate-600">Early / missed</p>
+                  <p className="mt-2 text-sm leading-7 text-slate-700">
                     {activeTimesheet.earlyClockOutCount} early | {activeTimesheet.missedClockOutCount} missed
                   </p>
                 </div>
                 <div className="px-5 py-5">
-                  <p className="text-xs uppercase tracking-[0.26em] text-brass">Summary</p>
-                  <p className="mt-2 text-sm leading-7 text-slate-300">{activeTimesheet.statusSummary}</p>
+                  <p className="text-sm font-semibold text-slate-600">Summary</p>
+                  <p className="mt-2 text-sm leading-7 text-slate-700">{activeTimesheet.statusSummary}</p>
                 </div>
               </div>
             </div>
@@ -490,7 +494,7 @@ export default async function TimesheetsPage({
                   })}
                 />
 
-                <div className="grid gap-4 border-y border-white/10 py-6">
+                <div className="grid gap-4 border-y border-[#e5dfd3] py-6">
                   <label>
                     <span className="auth-label">Notes</span>
                     <textarea
@@ -503,8 +507,8 @@ export default async function TimesheetsPage({
                   </label>
                 </div>
 
-                <div className="mt-8 border-y border-white/10">
-                  <div className="hidden grid-cols-[0.8fr_1fr_1fr_1fr_0.6fr] gap-4 border-b border-white/10 px-4 py-4 text-xs uppercase tracking-[0.26em] text-brass lg:grid">
+                <div className="mt-8 border-y border-[#e5dfd3]">
+                  <div className="hidden grid-cols-[0.8fr_1fr_1fr_1fr_0.6fr] gap-4 border-b border-[#e5dfd3] px-4 py-4 text-sm font-semibold text-slate-600 lg:grid">
                     <span>Work date</span>
                     <span>Status</span>
                     <span>Clock in</span>
@@ -513,11 +517,11 @@ export default async function TimesheetsPage({
                   </div>
 
                   {activeTimesheet.entries.map((entry) => (
-                    <div key={entry.id} className="border-b border-white/10 px-4 py-5 last:border-b-0">
+                    <div key={entry.id} className="border-b border-[#e5dfd3] px-4 py-5 last:border-b-0">
                       <input type="hidden" name="entryId" value={entry.id} />
                       <input type="hidden" name="workDate" value={entry.workDate.toISOString()} />
                       <div className="grid gap-4 lg:grid-cols-[0.8fr_1fr_1fr_1fr_0.6fr] lg:items-center">
-                        <div className="font-semibold text-white">{formatPortalDate(entry.workDate)}</div>
+                        <div className="font-semibold text-ink">{formatPortalDate(entry.workDate)}</div>
                         <input
                           type="text"
                           name="attendanceStatus"
@@ -552,14 +556,14 @@ export default async function TimesheetsPage({
                   <button type="submit" className="button-primary">
                     Save Timesheet Changes
                   </button>
-                  <p className="text-sm text-slate-400">
+                  <p className="text-sm text-slate-600">
                     Saving updates the weekly totals and keeps the sheet visible to both admin and staff.
                   </p>
                 </div>
               </form>
             ) : (
-              <div className="mt-8 border-y border-white/10">
-                <div className="hidden grid-cols-[1fr_0.9fr_0.8fr_0.8fr_0.6fr] gap-5 border-b border-white/10 px-4 py-4 text-xs uppercase tracking-[0.26em] text-brass lg:grid">
+              <div className="mt-8 border-y border-[#e5dfd3]">
+                <div className="hidden grid-cols-[1fr_0.9fr_0.8fr_0.8fr_0.6fr] gap-5 border-b border-[#e5dfd3] px-4 py-4 text-sm font-semibold text-slate-600 lg:grid">
                   <span>Work date</span>
                   <span>Status</span>
                   <span>Clock in</span>
@@ -568,20 +572,20 @@ export default async function TimesheetsPage({
                 </div>
 
                 {activeTimesheet.entries.map((entry) => (
-                  <div key={entry.id} className="border-b border-white/10 px-4 py-5 last:border-b-0">
+                  <div key={entry.id} className="border-b border-[#e5dfd3] px-4 py-5 last:border-b-0">
                     <div className="grid gap-5 lg:grid-cols-[1fr_0.9fr_0.8fr_0.8fr_0.6fr] lg:items-center">
-                      <div className="font-semibold text-white">{formatPortalDate(entry.workDate)}</div>
-                      <div className="text-sm leading-7 text-slate-300">{entry.attendanceStatus}</div>
-                      <div className="text-sm leading-7 text-slate-300">{formatPortalTime(entry.clockInAt)}</div>
-                      <div className="text-sm leading-7 text-slate-300">{formatPortalTime(entry.clockOutAt)}</div>
-                      <div className="text-sm leading-7 text-white">{formatWorkedMinutesLabel(entry.workedMinutes)}</div>
+                      <div className="font-semibold text-ink">{formatPortalDate(entry.workDate)}</div>
+                      <div className="text-sm leading-7 text-slate-700">{entry.attendanceStatus}</div>
+                      <div className="text-sm leading-7 text-slate-700">{formatPortalTime(entry.clockInAt)}</div>
+                      <div className="text-sm leading-7 text-slate-700">{formatPortalTime(entry.clockOutAt)}</div>
+                      <div className="text-sm leading-7 text-ink">{formatWorkedMinutesLabel(entry.workedMinutes)}</div>
                     </div>
                   </div>
                 ))}
 
                 {activeTimesheet.notes ? (
-                  <div className="border-t border-white/10 px-4 py-5 text-sm leading-7 text-slate-300">
-                    <span className="font-semibold text-white">Notes:</span> {activeTimesheet.notes}
+                  <div className="border-t border-[#e5dfd3] px-4 py-5 text-sm leading-7 text-slate-700">
+                    <span className="font-semibold text-ink">Notes:</span> {activeTimesheet.notes}
                   </div>
                 ) : null}
               </div>

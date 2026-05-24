@@ -24,7 +24,7 @@ export function AdminStaffForm() {
           </label>
           <input id="admin-username" name="username" className="auth-input" autoComplete="off" />
           {fieldError(state, "username") ? (
-            <p className="mt-2 text-sm text-rose-300">{fieldError(state, "username")}</p>
+            <p className="mt-2 text-sm text-rose-700">{fieldError(state, "username")}</p>
           ) : null}
         </div>
         <div>
@@ -33,7 +33,7 @@ export function AdminStaffForm() {
           </label>
           <input id="admin-email" name="email" type="email" className="auth-input" autoComplete="off" />
           {fieldError(state, "email") ? (
-            <p className="mt-2 text-sm text-rose-300">{fieldError(state, "email")}</p>
+            <p className="mt-2 text-sm text-rose-700">{fieldError(state, "email")}</p>
           ) : null}
         </div>
       </div>
@@ -45,7 +45,7 @@ export function AdminStaffForm() {
           </label>
           <input id="admin-firstName" name="firstName" className="auth-input" autoComplete="off" />
           {fieldError(state, "firstName") ? (
-            <p className="mt-2 text-sm text-rose-300">{fieldError(state, "firstName")}</p>
+            <p className="mt-2 text-sm text-rose-700">{fieldError(state, "firstName")}</p>
           ) : null}
         </div>
         <div>
@@ -54,7 +54,7 @@ export function AdminStaffForm() {
           </label>
           <input id="admin-lastName" name="lastName" className="auth-input" autoComplete="off" />
           {fieldError(state, "lastName") ? (
-            <p className="mt-2 text-sm text-rose-300">{fieldError(state, "lastName")}</p>
+            <p className="mt-2 text-sm text-rose-700">{fieldError(state, "lastName")}</p>
           ) : null}
         </div>
       </div>
@@ -85,7 +85,7 @@ export function AdminStaffForm() {
             autoComplete="new-password"
           />
           {fieldError(state, "password") ? (
-            <p className="mt-2 text-sm text-rose-300">{fieldError(state, "password")}</p>
+            <p className="mt-2 text-sm text-rose-700">{fieldError(state, "password")}</p>
           ) : null}
         </div>
         <div>
@@ -100,12 +100,12 @@ export function AdminStaffForm() {
             autoComplete="new-password"
           />
           {fieldError(state, "confirmPassword") ? (
-            <p className="mt-2 text-sm text-rose-300">{fieldError(state, "confirmPassword")}</p>
+            <p className="mt-2 text-sm text-rose-700">{fieldError(state, "confirmPassword")}</p>
           ) : null}
         </div>
       </div>
 
-      <p className="text-sm leading-7 text-slate-400">
+      <p className="text-sm leading-7 text-slate-600">
         Staff IDs are generated automatically and the account becomes active immediately after creation.
       </p>
 

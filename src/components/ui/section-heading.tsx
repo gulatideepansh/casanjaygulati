@@ -3,15 +3,30 @@ type SectionHeadingProps = {
   title: string;
   description: string;
   align?: "left" | "center";
+  variant?: "site" | "portal";
 };
 
 export function SectionHeading({
   eyebrow,
   title,
   description,
-  align = "left"
+  align = "left",
+  variant = "site"
 }: SectionHeadingProps) {
   const alignment = align === "center" ? "mx-auto max-w-3xl text-center" : "max-w-3xl";
+
+  if (variant === "portal") {
+    return (
+      <div className={alignment}>
+        <h2 className="text-2xl font-semibold leading-8 text-ink">{title}</h2>
+        {description ? (
+          <p className="mt-2 max-w-[42rem] text-sm leading-6 text-slate-600">
+            {description}
+          </p>
+        ) : null}
+      </div>
+    );
+  }
 
   return (
     <div className={alignment}>
