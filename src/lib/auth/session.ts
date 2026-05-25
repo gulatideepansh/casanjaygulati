@@ -54,17 +54,24 @@ export async function getCurrentUser() {
     return null;
   }
 
-  const activeSession = await getDb().session.findFirst({
-    where: {
-      sessionTokenHash: sha256(currentCookie.value),
-      expiresAt: {
-        gt: new Date()
+  let activeSession;
+
+  try {
+    activeSession = await getDb().session.findFirst({
+      where: {
+        sessionTokenHash: sha256(currentCookie.value),
+        expiresAt: {
+          gt: new Date()
+        }
+      },
+      include: {
+        user: true
       }
-    },
-    include: {
-      user: true
-    }
-  });
+    });
+  } catch (error) {
+    console.error("[portal:session] Failed to read the current session.", error);
+    return null;
+  }
 
   if (!activeSession) {
     return null;

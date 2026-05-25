@@ -101,43 +101,49 @@ export async function signInAction(
   }
 
   const identifier = normalizeIdentifier(parsedInput.data.identifier);
-  const user = await getDb().user.findFirst({
-    where: {
-      OR: [
-        {
-          username: identifier
-        },
-        {
-          email: identifier
-        }
-      ]
+  try {
+    const user = await getDb().user.findFirst({
+      where: {
+        OR: [
+          {
+            username: identifier
+          },
+          {
+            email: identifier
+          }
+        ]
+      }
+    });
+
+    if (!user) {
+      return buildErrorState("We could not find an account with those credentials.");
     }
-  });
 
-  if (!user) {
-    return buildErrorState("We could not find an account with those credentials.");
-  }
-
-  if (user.status !== AccountStatus.APPROVED) {
-    return buildErrorState("This staff account is inactive. Please contact the administrator.");
-  }
-
-  const passwordMatches = await verifyPassword(user.passwordHash, parsedInput.data.password);
-
-  if (!passwordMatches) {
-    return buildErrorState("We could not find an account with those credentials.");
-  }
-
-  await getDb().user.update({
-    where: {
-      id: user.id
-    },
-    data: {
-      lastLoginAt: new Date()
+    if (user.status !== AccountStatus.APPROVED) {
+      return buildErrorState("This staff account is inactive. Please contact the administrator.");
     }
-  });
 
-  await createUserSession(user.id);
+    const passwordMatches = await verifyPassword(user.passwordHash, parsedInput.data.password);
+
+    if (!passwordMatches) {
+      return buildErrorState("We could not find an account with those credentials.");
+    }
+
+    await getDb().user.update({
+      where: {
+        id: user.id
+      },
+      data: {
+        lastLoginAt: new Date()
+      }
+    });
+
+    await createUserSession(user.id);
+  } catch (error) {
+    console.error("[portal:sign-in] Sign-in failed before redirect.", error);
+    return buildErrorState("The staff portal is temporarily unavailable. Please try again shortly.");
+  }
+
   redirect("/portal/dashboard");
 }
 
